@@ -1,12 +1,396 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>StoreRi7a Admin</title>
-<style>body{font-family:Arial;background:#f6f2f2;margin:0;padding:20px;color:#211c20}.wrap{max-width:850px;margin:auto}.box{background:white;padding:20px;border-radius:12px;margin:15px 0}input,select,button{padding:12px;margin:5px;border:1px solid #ddd;border-radius:7px}button{background:#211c20;color:white;cursor:pointer}.danger{background:#9b2c2c}.row{display:flex;flex-wrap:wrap;gap:7px}.row>*{flex:1}.product{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding:12px 0;gap:10px}</style></head>
-<body><div class="wrap"><h1>لوحة StoreRi7a</h1><div class="box"><h3>مفتاح الإدارة</h3><input id="key" type="password" placeholder="ADMIN_KEY"><button onclick="saveKey()">حفظ على هذا الجهاز</button></div>
-<div class="box"><h3>إضافة منتج</h3><div class="row"><input id="name" placeholder="اسم المنتج"><select id="cat"><option>عطور نسائية</option><option>عطور رجالية</option><option>تجميل</option></select><input id="price" type="number" placeholder="الثمن"><input id="image" placeholder="رابط الصورة أو Emoji"></div><button onclick="add()">إضافة المنتج</button></div>
-<div class="box"><h3>المنتجات</h3><div id="list">تحميل...</div></div></div>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>StoreRi7a Admin</title>
+
+<style>
+body{
+  font-family:Arial;
+  background:#f6f2f2;
+  margin:0;
+  padding:20px;
+  color:#211c20
+}
+.wrap{max-width:850px;margin:auto}
+.box{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  margin:15px 0
+}
+input,select,button{
+  padding:12px;
+  margin:5px;
+  border:1px solid #ddd;
+  border-radius:7px
+}
+button{
+  background:#211c20;
+  color:white;
+  cursor:pointer
+}
+.danger{background:#9b2c2c}
+.row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px
+}
+.row>*{flex:1}
+.product{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #eee;
+  padding:12px 0;
+  gap:10px
+}
+.message{
+  padding:10px;
+  margin-top:10px;
+  border-radius:7px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<h1>لوحة StoreRi7a</h1>
+
+<div class="box">
+  <h3>مفتاح الإدارة</h3>
+
+  <input
+    id="adminKey"
+    type="password"
+    placeholder="ADMIN_KEY"
+  >
+
+  <button onclick="saveKey()">
+    حفظ على هذا الجهاز
+  </button>
+</div>
+
+<div class="box">
+
+<h3>إضافة منتج</h3>
+
+<div class="row">
+
+<input
+  id="productName"
+  placeholder="اسم المنتج"
+>
+
+<select id="productCategory">
+  <option>عطور نسائية</option>
+  <option>عطور رجالية</option>
+  <option>تجميل</option>
+</select>
+
+<input
+  id="productPrice"
+  type="number"
+  placeholder="الثمن"
+>
+
+<input
+  id="productImage"
+  placeholder="رابط الصورة أو Emoji"
+>
+
+</div>
+
+<button onclick="addProduct()">
+إضافة المنتج
+</button>
+
+<div id="message"></div>
+
+</div>
+
+<div class="box">
+<h3>المنتجات</h3>
+<div id="productList">تحميل...</div>
+</div>
+
+</div>
+
 <script>
-key.value=localStorage.adminKey||''; function saveKey(){localStorage.adminKey=key.value;alert('تم الحفظ')}
-async function load(){let r=await fetch('/api/products');let a=await r.json();list.innerHTML=a.map(p=>`<div class="product"><span>${p.image||'📦'} <b>${p.name}</b> — ${p.price} DH</span><button class="danger" onclick="del(${p.id})">حذف</button></div>`).join('')||'لا توجد منتجات'}
-async function add(){let r=await fetch('/api/products',{method:'POST',headers:{'content-type':'application/json','x-admin-key':key.value},body:JSON.stringify({name:name.value,category:cat.value,price:+price.value,image:image.value})});if(r.ok){name.value=price.value=image.value='';load()}else alert('تحقق من مفتاح الإدارة والبيانات')}
-async function del(id){if(!confirm('حذف المنتج؟'))return;let r=await fetch('/api/products/'+id,{method:'DELETE',headers:{'x-admin-key':key.value}});if(r.ok)load();else alert('غير مصرح')}
-load();
-</script></body></html>
+
+const adminKeyInput =
+  document.getElementById("adminKey");
+
+const productNameInput =
+  document.getElementById("productName");
+
+const productCategoryInput =
+  document.getElementById("productCategory");
+
+const productPriceInput =
+  document.getElementById("productPrice");
+
+const productImageInput =
+  document.getElementById("productImage");
+
+const productList =
+  document.getElementById("productList");
+
+const messageBox =
+  document.getElementById("message");
+
+
+adminKeyInput.value =
+  localStorage.getItem("adminKey") || "";
+
+
+function saveKey(){
+
+  const value =
+    adminKeyInput.value.trim();
+
+  if(!value){
+    alert("أدخل مفتاح الإدارة أولا");
+    return;
+  }
+
+  localStorage.setItem(
+    "adminKey",
+    value
+  );
+
+  alert("تم حفظ مفتاح الإدارة");
+}
+
+
+async function loadProducts(){
+
+  try{
+
+    const response =
+      await fetch("/api/products");
+
+    if(!response.ok){
+      throw new Error(
+        "HTTP " + response.status
+      );
+    }
+
+    const products =
+      await response.json();
+
+    productList.innerHTML =
+      products.map(product => `
+
+        <div class="product">
+
+          <span>
+
+            ${product.image || "📦"}
+
+            <b>
+              ${product.name}
+            </b>
+
+            —
+            ${product.price}
+            DH
+
+          </span>
+
+          <button
+            class="danger"
+            onclick="deleteProduct(${product.id})"
+          >
+            حذف
+          </button>
+
+        </div>
+
+      `).join("")
+      || "لا توجد منتجات";
+
+  }
+  catch(error){
+
+    productList.innerHTML =
+      "خطأ في تحميل المنتجات";
+
+    console.error(error);
+  }
+}
+
+
+async function addProduct(){
+
+  const adminKey =
+    adminKeyInput.value.trim();
+
+  const productName =
+    productNameInput.value.trim();
+
+  const category =
+    productCategoryInput.value;
+
+  const price =
+    Number(productPriceInput.value);
+
+  const image =
+    productImageInput.value.trim();
+
+
+  if(!adminKey){
+
+    alert("أدخل مفتاح الإدارة");
+
+    return;
+  }
+
+
+  if(!productName){
+
+    alert("أدخل اسم المنتج");
+
+    return;
+  }
+
+
+  if(
+    !Number.isFinite(price)
+    || price < 0
+  ){
+
+    alert("أدخل ثمنا صحيحا");
+
+    return;
+  }
+
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/products",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json",
+
+            "x-admin-key":
+              adminKey
+          },
+
+          body:JSON.stringify({
+            name:productName,
+            category:category,
+            price:price,
+            image:image
+          })
+        }
+      );
+
+
+    if(!response.ok){
+
+      const errorText =
+        await response.text();
+
+      alert(
+        "فشل إضافة المنتج\n"
+        +
+        "HTTP "
+        + response.status
+        + "\n"
+        + errorText
+      );
+
+      return;
+    }
+
+
+    const result =
+      await response.json();
+
+
+    messageBox.textContent =
+      "✅ تمت إضافة المنتج بنجاح";
+
+
+    productNameInput.value = "";
+    productPriceInput.value = "";
+    productImageInput.value = "";
+
+
+    await loadProducts();
+
+  }
+  catch(error){
+
+    alert(
+      "خطأ في الاتصال: "
+      + error.message
+    );
+  }
+}
+
+
+async function deleteProduct(id){
+
+  if(
+    !confirm(
+      "هل تريد حذف هذا المنتج؟"
+    )
+  ){
+    return;
+  }
+
+
+  const adminKey =
+    adminKeyInput.value.trim();
+
+
+  const response =
+    await fetch(
+      "/api/products/" + id,
+      {
+        method:"DELETE",
+
+        headers:{
+          "x-admin-key":
+            adminKey
+        }
+      }
+    );
+
+
+  if(response.ok){
+
+    await loadProducts();
+
+  }
+  else{
+
+    const text =
+      await response.text();
+
+    alert(
+      "فشل الحذف\nHTTP "
+      + response.status
+      + "\n"
+      + text
+    );
+  }
+}
+
+
+loadProducts();
+
+</script>
+
+</body>
+</html>

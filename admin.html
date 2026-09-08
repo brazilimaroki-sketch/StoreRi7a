@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>لوحة إدارة StoreRi7a</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff8fa;font-family:Arial,Tahoma,sans-serif;color:#2a1820}
+.wrap{max-width:950px;margin:auto;padding:18px}
+h1{color:#9e1740}
+.card{background:#fff;border:1px solid #efdce3;border-radius:18px;padding:16px;margin-bottom:16px;box-shadow:0 8px 25px #74133410}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+label{display:block;font-size:13px;color:#785d67;margin:4px 0}
+input,select{width:100%;height:46px;border:1px solid #e5ccd6;border-radius:12px;padding:0 12px;font-size:15px;background:#fff}
+button{border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer}
+.primary{background:#c70f47;color:#fff}
+.secondary{background:#f5e3e9;color:#8f173b}
+.danger{background:#ffebef;color:#b10032}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.msg{padding:10px;border-radius:10px;margin-top:10px;display:none}
+.ok{background:#e8fff0;color:#08752f;display:block}
+.err{background:#ffecee;color:#a60021;display:block}
+.item{display:grid;grid-template-columns:1fr auto;gap:10px;border-top:1px solid #eee;padding:14px 0}
+.item:first-child{border-top:0}
+.meta{font-size:13px;color:#7a6570;margin-top:5px}
+.sale{color:#c70f47;font-weight:800}
+small.hint{display:block;color:#8d727c;margin-top:5px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.item{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>لوحة إدارة StoreRi7a</h1>
+
+  <div class="card">
+    <h3>مفتاح الإدارة</h3>
+    <label>ADMIN_KEY</label>
+    <input id="adminKey" type="password" placeholder="أدخل نفس ADMIN_KEY الموجود في Cloudflare">
+    <div class="actions">
+      <button class="secondary" onclick="saveKey()">حفظ المفتاح</button>
+      <button class="secondary" onclick="loadProducts()">تحديث المنتجات</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 id="formTitle">إضافة منتج</h3>
+
+    <div class="grid">
+      <div>
+        <label>اسم المنتج</label>
+        <input id="productName" placeholder="مثال: Rose Velvet">
+      </div>
+
+      <div>
+        <label>القسم</label>
+        <select id="productCategory">
+          <option value="عطور نسائية">عطور نسائية</option>
+          <option value="عطور رجالية">عطور رجالية</option>
+          <option value="مواد التجميل">مواد التجميل</option>
+        </select>
+      </div>
+
+      <div>
+        <label>السعر العادي (DH)</label>
+        <input id="productPrice" type="number" min="0" step="0.01" placeholder="199">
+      </div>
+
+      <div>
+        <label>سعر التخفيض (اختياري)</label>
+        <input id="productSalePrice" type="number" min="0" step="0.01" placeholder="149" oninput="syncDiscount()">
+        <small class="hint">خليه فارغ إلا ماكانش تخفيض.</small>
+      </div>
+
+      <div>
+        <label>نسبة التخفيض %</label>
+        <input id="productDiscount" type="number" min="0" max="100" step="1" placeholder="25" oninput="syncSalePrice()">
+      </div>
+
+      <div>
+        <label>رابط الصورة</label>
+        <input id="productImage" placeholder="/images/product.jpg أو رابط https">
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="primary" id="saveBtn" onclick="saveProduct()">إضافة المنتج</button>
+      <button class="secondary" id="cancelBtn" onclick="resetForm()" style="display:none">إلغاء التعديل</button>
+    </div>
+
+    <div id="message" class="msg"></div>
+  </div>
+
+  <div class="card">
+    <h3>المنتجات الحالية</h3>
+    <div id="productList">جاري التحميل...</div>
+  </div>
+</div>
+
+<script>
+let editingId=null;
+let products=[];
+
+const $=id=>document.getElementById(id);
+
+function key(){
+  return localStorage.getItem('storeri7a_admin_key') || $('adminKey').value.trim();
+}
+
+function saveKey(){
+  localStorage.setItem('storeri7a_admin_key',$('adminKey').value.trim());
+  show('✅ تم حفظ المفتاح','ok');
+  loadProducts();
+}
+
+function show(text,type='ok'){
+  const m=$('message');
+  m.textContent=text;
+  m.className='msg '+type;
+}
+
+function esc(v){
+  return String(v??'').replace(/[&<>"']/g,m=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[m]));
+}
+
+function syncDiscount(){
+  const price=Number($('productPrice').value||0);
+  const sale=Number($('productSalePrice').value||0);
+  if(price>0 && sale>0 && sale<price){
+    $('productDiscount').value=Math.round((1-sale/price)*100);
+  }else if(!$('productSalePrice').value){
+    $('productDiscount').value='';
+  }
+}
+
+function syncSalePrice(){
+  const price=Number($('productPrice').value||0);
+  const disc=Number($('productDiscount').value||0);
+  if(price>0 && disc>0 && disc<100){
+    $('productSalePrice').value=(price*(1-disc/100)).toFixed(2).replace(/\.00$/,'');
+  }else if(!$('productDiscount').value){
+    $('productSalePrice').value='';
+  }
+}
+
+async function loadProducts(){
+  $('adminKey').value=localStorage.getItem('storeri7a_admin_key')||'';
+  try{
+    const r=await fetch('/api/products?ts='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    products=await r.json();
+    renderProducts();
+  }catch(e){
+    $('productList').textContent='تعذر تحميل المنتجات: '+e.message;
+  }
+}
+
+function renderProducts(){
+  if(!products.length){
+    $('productList').innerHTML='<p>لا توجد منتجات بعد.</p>';
+    return;
+  }
+
+  $('productList').innerHTML=products.map(p=>{
+    const sale=(p.sale_price!==null && p.sale_price!==undefined && Number(p.sale_price)<Number(p.price))
+      ? `<span class="sale"> → ${p.sale_price} DH (-${p.discount||Math.round((1-p.sale_price/p.price)*100)}%)</span>`
+      : '';
+
+    return `<div class="item">
+      <div>
+        <b>${esc(p.name)}</b>
+        <div class="meta">${esc(p.category)} — ${p.price} DH ${sale}</div>
+        <div class="meta">${p.image?esc(p.image):'بدون صورة'}</div>
+      </div>
+      <div class="actions">
+        <button class="secondary" onclick="editProduct(${Number(p.id)})">تعديل</button>
+        <button class="danger" onclick="deleteProduct(${Number(p.id)})">حذف</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function editProduct(id){
+  const p=products.find(x=>Number(x.id)===Number(id));
+  if(!p) return;
+
+  editingId=id;
+  $('formTitle').textContent='تعديل المنتج';
+  $('saveBtn').textContent='حفظ التعديل';
+  $('cancelBtn').style.display='inline-block';
+
+  $('productName').value=p.name||'';
+  $('productCategory').value=
+    p.category==='تجميل' ? 'مواد التجميل' : (p.category||'عطور نسائية');
+  $('productPrice').value=p.price??'';
+  $('productSalePrice').value=p.sale_price??'';
+  $('productDiscount').value=p.discount??'';
+  $('productImage').value=p.image||'';
+
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function resetForm(){
+  editingId=null;
+  $('formTitle').textContent='إضافة منتج';
+  $('saveBtn').textContent='إضافة المنتج';
+  $('cancelBtn').style.display='none';
+
+  $('productName').value='';
+  $('productPrice').value='';
+  $('productSalePrice').value='';
+  $('productDiscount').value='';
+  $('productImage').value='';
+  $('productCategory').value='عطور نسائية';
+}
+
+async function saveProduct(){
+  const payload={
+    name:$('productName').value.trim(),
+    category:$('productCategory').value,
+    price:Number($('productPrice').value),
+    sale_price:$('productSalePrice').value==='' ? null : Number($('productSalePrice').value),
+    discount:$('productDiscount').value==='' ? 0 : Number($('productDiscount').value),
+    image:$('productImage').value.trim(),
+    active:1
+  };
+
+  if(!payload.name || !payload.category || !Number.isFinite(payload.price) || payload.price<0){
+    show('❌ أدخل الاسم والقسم والسعر بشكل صحيح','err');
+    return;
+  }
+
+  if(payload.sale_price!==null && (payload.sale_price<0 || payload.sale_price>=payload.price)){
+    show('❌ سعر التخفيض يجب أن يكون أقل من السعر العادي','err');
+    return;
+  }
+
+  const url=editingId ? '/api/products/'+editingId : '/api/products';
+  const method=editingId ? 'PUT' : 'POST';
+
+  try{
+    const r=await fetch(url,{
+      method,
+      headers:{
+        'content-type':'application/json',
+        'x-admin-key':key()
+      },
+      body:JSON.stringify(payload)
+    });
+
+    const text=await r.text();
+    if(!r.ok) throw new Error(text || ('HTTP '+r.status));
+
+    show(editingId?'✅ تم تعديل المنتج بنجاح':'✅ تمت إضافة المنتج بنجاح','ok');
+    resetForm();
+    await loadProducts();
+  }catch(e){
+    show('❌ '+e.message,'err');
+  }
+}
+
+async function deleteProduct(id){
+  if(!confirm('هل تريد حذف هذا المنتج؟')) return;
+
+  try{
+    const r=await fetch('/api/products/'+id,{
+      method:'DELETE',
+      headers:{'x-admin-key':key()}
+    });
+
+    const text=await r.text();
+    if(!r.ok) throw new Error(text || ('HTTP '+r.status));
+
+    show('✅ تم حذف المنتج','ok');
+    await loadProducts();
+  }catch(e){
+    show('❌ '+e.message,'err');
+  }
+}
+
+loadProducts();
+</script>
+</body>
+</html>

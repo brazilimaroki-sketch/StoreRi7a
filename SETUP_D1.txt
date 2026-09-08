@@ -1,0 +1,13 @@
+StoreRi7a D1 — النسخة المطورة
+
+1) أنشئ D1 Database في Cloudflare وسمّها storeri7a-db.
+2) نفّذ محتوى schema.sql داخل D1 Console.
+3) في مشروع Pages: Settings > Bindings > Add > D1 database.
+   Variable name: DB
+   Database: storeri7a-db
+4) أضف Environment variable/Secret باسم ADMIN_KEY واختر كلمة سر قوية.
+5) انشر المشروع عن طريق Git integration أو Wrangler لأن Pages Functions لا تعمل مع Direct Upload من لوحة Cloudflare.
+6) بعد النشر افتح /admin.html وأدخل ADMIN_KEY.
+7) غيّر واتساب لاحقاً من D1 settings أو config.js كحل احتياطي.
+
+ملاحظة: لا تشارك ADMIN_KEY.

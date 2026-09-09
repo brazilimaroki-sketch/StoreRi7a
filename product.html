@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>تفاصيل المنتج - StoreRi7a</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="product.css?v=20260909-ref1">
+</head>
+<body class="productPage">
+
+<header class="siteHeader">
+  <div class="topBar">
+    <a class="brandLogo" href="/" aria-label="StoreRi7a">
+      <img src="ri7a-logo.png" alt="RI7A">
+    </a>
+
+    <div class="searchBox">
+      <span>⌕</span>
+      <input id="searchTop" placeholder="ابحث عن منتج..." onkeydown="productSearch(event)">
+    </div>
+
+    <button class="cartTop" onclick="openCart()" aria-label="السلة">
+      🛒 <b id="cartCount">0</b>
+    </button>
+  </div>
+</header>
+
+<main class="productShell">
+
+  <div class="productTopActions">
+    <button class="backCategoryBtn" type="button" onclick="backToCategory()">
+      ← <span id="backText">الرجوع للقسم</span>
+    </button>
+
+    <button class="shareProductBtn" type="button" onclick="shareProduct()">
+      مشاركة المنتج <span>↗</span>
+    </button>
+  </div>
+
+  <div id="loadingBox" class="stateBox">جاري تحميل المنتج...</div>
+  <div id="errorBox" class="stateBox errorBox" hidden>تعذر تحميل المنتج.</div>
+
+  <article id="productView" class="productView" hidden>
+
+    <section class="productMediaColumn">
+      <div class="mainMediaFrame">
+        <div id="discountBadge" class="discountBadge" hidden></div>
+        <button class="mainImageButton" type="button" onclick="openLightbox(currentImageIndex)">
+          <div id="productImage" class="mainProductImage"></div>
+        </button>
+      </div>
+      <div id="thumbs" class="thumbs"></div>
+    </section>
+
+    <section class="productInfoColumn">
+      <div id="productCategory" class="productCategory"></div>
+      <h1 id="productName"></h1>
+
+      <div class="priceArea">
+        <span id="oldPrice" class="oldPrice"></span>
+        <strong id="currentPrice"></strong>
+      </div>
+
+      <div id="savingBox" class="savingBox" hidden></div>
+
+      <div class="metaGrid">
+        <div class="metaCard">
+          <span class="metaIcon">🏷️</span>
+          <div>
+            <small>الماركة</small>
+            <strong id="productBrand">—</strong>
+          </div>
+        </div>
+
+        <div class="metaCard">
+          <span class="metaIcon">🧴</span>
+          <div>
+            <small>الحجم / السعة</small>
+            <strong id="productSize">—</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="trustRow">
+        <span>🛡️ دفع آمن</span>
+        <span>🚚 توصيل سريع</span>
+        <span>💎 أصلي 100%</span>
+      </div>
+    </section>
+
+    <section class="descriptionBlock">
+      <div class="descriptionTitleRow">
+        <span class="descriptionIcon">📄</span>
+        <h2>تفاصيل المنتج</h2>
+      </div>
+      <div id="productDescription"></div>
+    </section>
+
+    <section class="purchaseBlock">
+      <button class="addCartBtn" type="button" onclick="addCurrentToCart()">🛒 أضف إلى السلة</button>
+      <button class="whatsappBtn" type="button" onclick="orderCurrentWhatsApp()">اطلب عبر WhatsApp</button>
+
+      <div class="lowerActions">
+        <button class="favoriteBtn" id="favoriteBtn" type="button" onclick="toggleFavorite()">
+          ♡ إضافة إلى المفضلة
+        </button>
+        <div class="deliveryCard">🚚 توصيل لجميع المدن</div>
+      </div>
+    </section>
+
+  </article>
+
+  <section id="similarSection" class="similarSection" hidden>
+    <div class="similarHeading">
+      <span>YOU MAY ALSO LIKE</span>
+      <h2>منتجات مشابهة</h2>
+    </div>
+    <div id="similarGrid" class="similarGrid"></div>
+  </section>
+</main>
+
+<div id="lightbox" class="lightbox" hidden>
+  <div class="lightboxTop">
+    <button onclick="closeLightbox()">✕</button>
+    <div class="zoomControls">
+      <button onclick="zoomOut()">−</button>
+      <span id="zoomValue">100%</span>
+      <button onclick="zoomIn()">+</button>
+      <button onclick="resetZoom()">↺</button>
+    </div>
+  </div>
+
+  <button class="lbNav lbPrev" onclick="lightboxPrev()">‹</button>
+  <div id="lightboxStage" class="lightboxStage">
+    <img id="lightboxImage" alt="">
+  </div>
+  <button class="lbNav lbNext" onclick="lightboxNext()">›</button>
+  <div id="lightboxCounter" class="lightboxCounter"></div>
+</div>
+
+<div id="cartShade" class="cartShade" onclick="closeCart()"></div>
+<aside id="cart" class="cartDrawer">
+  <div class="cartHead">
+    <h2>سلة المشتريات</h2>
+    <button onclick="closeCart()">✕</button>
+  </div>
+  <div id="cartItems"></div>
+  <div class="cartTotal">
+    <span>المجموع</span>
+    <b id="total">0 DH</b>
+  </div>
+  <button class="waBtn" onclick="checkout()">إرسال الطلب عبر WhatsApp</button>
+</aside>
+
+<script src="config.js"></script>
+<script src="app.js?v=20260909-ref1"></script>
+</body>
+</html>

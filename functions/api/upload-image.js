@@ -6,16 +6,47 @@ export async function onRequest({ request, env }) {
     });
   }
 
-  // حماية الرفع بمفتاح الإدارة
   if (request.headers.get("x-admin-key") !== env.ADMIN_KEY) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  // التأكد من إعداد Supabase
   if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
     return new Response("Supabase configuration missing", {
       status: 500
     });
+  }
+
+  // التحقق من أن المفتاح فعلاً service_role
+  try {
+    const parts = env.SUPABASE_SERVICE_ROLE_KEY.split(".");
+
+    if (parts.length !== 3) {
+      return new Response(
+        "SUPABASE_SERVICE_ROLE_KEY is not a legacy JWT service_role key",
+        { status: 500 }
+      );
+    }
+
+    const payload = JSON.parse(
+      atob(
+        parts[1]
+          .replace(/-/g, "+")
+          .replace(/_/g, "/")
+          .padEnd(Math.ceil(parts[1].length / 4) * 4, "=")
+      )
+    );
+
+    if (payload.role !== "service_role") {
+      return new Response(
+        "Wrong Supabase key role: " + String(payload.role || "unknown"),
+        { status: 500 }
+      );
+    }
+  } catch (e) {
+    return new Response(
+      "Unable to validate service role key",
+      { status: 500 }
+    );
   }
 
   try {
@@ -23,9 +54,7 @@ export async function onRequest({ request, env }) {
     const file = form.get("image");
 
     if (!file || typeof file === "string") {
-      return new Response("Image required", {
-        status: 400
-      });
+      return new Response("Image required", { status: 400 });
     }
 
     const allowed = [
@@ -40,7 +69,6 @@ export async function onRequest({ request, env }) {
       });
     }
 
-    // الحد الأقصى 5MB
     if (file.size > 5 * 1024 * 1024) {
       return new Response("Image too large", {
         status: 400
@@ -49,13 +77,8 @@ export async function onRequest({ request, env }) {
 
     let ext = "jpg";
 
-    if (file.type === "image/png") {
-      ext = "png";
-    }
-
-    if (file.type === "image/webp") {
-      ext = "webp";
-    }
+    if (file.type === "image/png") ext = "png";
+    if (file.type === "image/webp") ext = "webp";
 
     const filename =
       "product-" +
@@ -76,21 +99,13 @@ export async function onRequest({ request, env }) {
 
     const upload = await fetch(uploadUrl, {
       method: "POST",
-
       headers: {
-        "Authorization":
+        apikey: env.SUPABASE_SERVICE_ROLE_KEY,
+        Authorization:
           "Bearer " + env.SUPABASE_SERVICE_ROLE_KEY,
-
-        "apikey":
-          env.SUPABASE_SERVICE_ROLE_KEY,
-
-        "Content-Type":
-          file.type,
-
-        "x-upsert":
-          "false"
+        "Content-Type": file.type,
+        "x-upsert": "false"
       },
-
       body: file
     });
 
@@ -102,9 +117,7 @@ export async function onRequest({ request, env }) {
         upload.status +
         ": " +
         result,
-        {
-          status: 502
-        }
+        { status: 502 }
       );
     }
 
@@ -123,9 +136,7 @@ export async function onRequest({ request, env }) {
   } catch (e) {
     return new Response(
       "Upload error: " + e.message,
-      {
-        status: 500
-      }
+      { status: 500 }
     );
   }
 }

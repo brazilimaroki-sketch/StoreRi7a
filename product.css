@@ -1,0 +1,72 @@
+/* StoreRi7a — Product page redesign */
+.productPage{background:#fff;color:#173e78}
+.productPage .siteHeader{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.97);border-bottom:1px solid #e5edf8}
+.productShell{max-width:1120px;margin:auto;padding:20px 18px 55px}
+.productActions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 20px}
+.softAction{border:1px solid #c8daf5;background:#f2f7ff;color:#0d4b9c;border-radius:999px;padding:12px 18px;font:inherit;font-weight:800;cursor:pointer}
+.shareAction{background:#fff}
+.stateBox{padding:30px;text-align:center;color:#68758a}
+.errorBox{color:#b42318}
+.productView{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start}
+.productImageSide{position:relative;border:1px solid #dce5f1;border-radius:28px;overflow:hidden;background:#fff;min-height:470px;display:flex;align-items:center;justify-content:center}
+.mainProductImage{width:100%;height:100%;min-height:470px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f5dcff,#c18de8)}
+.mainProductImage img{width:100%;height:100%;max-height:600px;object-fit:contain;background:#fff}
+.mainProductImage .fallbackEmoji{font-size:110px}
+.discountBadge{position:absolute;top:16px;right:16px;z-index:2;background:#e51f3b;color:#fff;border-radius:999px;padding:8px 12px;font-weight:900}
+.productInfoSide{padding:10px 0}
+.productCategory{font-size:17px;color:#17579b;margin-bottom:10px}
+.productInfoSide h1{font-size:40px;line-height:1.25;margin:0 0 22px;color:#123f82}
+.priceArea{display:flex;gap:15px;align-items:baseline;flex-wrap:wrap;margin-bottom:12px}
+.priceArea strong{font-size:38px;color:#d51f2e}
+.oldPrice{text-decoration:line-through;color:#8a8a8a;font-size:23px}
+.savingBox{display:inline-block;background:#fff0f0;color:#c71927;padding:12px 18px;border-radius:15px;font-weight:800;margin-bottom:24px}
+.metaGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.metaCard{border:1px solid #dce5f1;border-radius:20px;padding:15px;display:flex;align-items:center;gap:13px;background:#fbfdff}
+.metaIcon{width:45px;height:45px;display:grid;place-items:center;background:#eef5ff;border-radius:14px;font-size:22px}
+.metaCard div{display:flex;flex-direction:column;gap:5px}
+.metaCard small{color:#8792a3;font-size:13px}
+.metaCard strong{color:#173f78;font-size:17px}
+.trustRow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 25px}
+.trustRow span{border:1px solid #e1e8f3;border-radius:16px;padding:12px 8px;text-align:center;background:#fafcff;color:#43536d;font-size:14px}
+.detailDescription{border-top:1px solid #edf0f4;padding-top:24px;margin-top:8px}
+.detailDescription h2{font-size:25px;color:#123f82;margin:0 0 16px}
+#productDescription{direction:rtl;text-align:right;font-family:Tahoma,Arial,sans-serif;font-size:15px;font-weight:400;line-height:1.85;color:#465268;white-space:pre-line;overflow-wrap:anywhere}
+.buyActions{display:grid;gap:12px;border-top:1px solid #edf0f4;margin-top:24px;padding-top:24px}
+.buyActions button{border:0;border-radius:16px;padding:17px;font:inherit;font-size:18px;font-weight:900;color:#fff;cursor:pointer}
+.addCartBtn{background:#1151bd}
+.whatsappBtn{background:#169653}
+.serviceMini{display:grid;gap:10px;margin-top:20px}
+.serviceMini span{background:#f8faff;border-radius:15px;padding:15px;color:#536075}
+.similarSection{margin-top:55px}
+.similarHeading span{font-size:12px;letter-spacing:3px;color:#1260b5;font-weight:800}
+.similarHeading h2{margin:6px 0 18px;color:#123f82}
+.similarGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.similarCard{border:1px solid #e0e7f0;border-radius:18px;overflow:hidden;background:#fff;text-decoration:none;color:inherit}
+.similarImage{height:180px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f4d8ff,#c286e6);font-size:55px}
+.similarImage img{width:100%;height:100%;object-fit:contain;background:#fff}
+.similarBody{padding:12px}
+.similarBody small{color:#778398}
+.similarBody h3{font-size:15px;margin:5px 0;color:#172c4d}
+.similarBody strong{color:#d51f2e}
+@media(max-width:700px){
+  .productShell{padding:14px 14px 40px}
+  .productActions{margin-bottom:14px}
+  .softAction{font-size:13px;padding:10px 13px}
+  .productView{grid-template-columns:1fr;gap:18px}
+  .productImageSide,.mainProductImage{min-height:330px}
+  .mainProductImage img{max-height:430px}
+  .productInfoSide{border:1px solid #dfe7f1;border-radius:25px;padding:22px 18px}
+  .productInfoSide h1{font-size:31px;margin-bottom:17px}
+  .priceArea strong{font-size:31px}
+  .oldPrice{font-size:20px}
+  .metaGrid{gap:10px}
+  .metaCard{padding:12px 10px}
+  .metaIcon{width:39px;height:39px}
+  .metaCard strong{font-size:15px}
+  .trustRow{gap:6px}
+  .trustRow span{font-size:11px;padding:10px 4px}
+  .detailDescription h2{font-size:21px}
+  #productDescription{font-size:15px;line-height:1.82}
+  .similarGrid{grid-template-columns:repeat(2,1fr)}
+  .similarImage{height:160px}
+}

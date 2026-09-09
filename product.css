@@ -336,3 +336,42 @@
     grid-template-columns:1fr;
   }
 }
+
+/* StoreRi7a — تحسين قراءة وصف المنتج على الهاتف
+   أضف هذا المقطع في نهاية product.css
+*/
+
+.productDescription,
+.product-description,
+#productDescription,
+.description,
+#description {
+  direction: rtl;
+  text-align: right;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.9;
+  color: #5f6877;
+  letter-spacing: 0;
+  overflow-wrap: break-word;
+  white-space: pre-line;
+}
+
+.productDescription p,
+.product-description p,
+#productDescription p,
+.description p,
+#description p {
+  margin: 0 0 10px;
+}
+
+@media (max-width: 600px) {
+  .productDescription,
+  .product-description,
+  #productDescription,
+  .description,
+  #description {
+    font-size: 17px;
+    line-height: 1.9;
+  }
+}

@@ -51,10 +51,10 @@ export async function onRequest({ request, env }) {
     const upload = await fetch(uploadUrl, {
       method: "POST",
       headers: {
-        Authorization: "Bearer " + env.SUPABASE_SECRET_KEY,
-        apikey: env.SUPABASE_SECRET_KEY,
-        "Content-Type": file.type,
-        "x-upsert": "false"
+  apikey: env.SUPABASE_SECRET_KEY,
+  "Content-Type": file.type,
+  "x-upsert": "false"
+},
       },
       body: file
     });

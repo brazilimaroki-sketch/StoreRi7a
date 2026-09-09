@@ -1,5 +1,4 @@
 export async function onRequest({ request, env }) {
-  // السماح فقط بطلب POST
   if (request.method !== "POST") {
     return new Response("Method Not Allowed", {
       status: 405,
@@ -7,20 +6,19 @@ export async function onRequest({ request, env }) {
     });
   }
 
-  // التحقق من مفتاح الإدارة
+  // حماية الرفع بمفتاح الإدارة
   if (request.headers.get("x-admin-key") !== env.ADMIN_KEY) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  // التحقق من إعدادات Supabase
-  if (!env.SUPABASE_URL || !env.SUPABASE_SECRET_KEY) {
+  // التأكد من إعداد Supabase
+  if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
     return new Response("Supabase configuration missing", {
       status: 500
     });
   }
 
   try {
-    // قراءة الصورة المرسلة من لوحة الإدارة
     const form = await request.formData();
     const file = form.get("image");
 
@@ -30,7 +28,6 @@ export async function onRequest({ request, env }) {
       });
     }
 
-    // أنواع الصور المسموح بها
     const allowed = [
       "image/jpeg",
       "image/png",
@@ -50,7 +47,6 @@ export async function onRequest({ request, env }) {
       });
     }
 
-    // تحديد امتداد الصورة
     let ext = "jpg";
 
     if (file.type === "image/png") {
@@ -61,7 +57,6 @@ export async function onRequest({ request, env }) {
       ext = "webp";
     }
 
-    // إنشاء اسم فريد للصورة
     const filename =
       "product-" +
       Date.now() +
@@ -72,7 +67,6 @@ export async function onRequest({ request, env }) {
 
     const bucket = "product-images";
 
-    // رابط رفع الصورة إلى Supabase
     const uploadUrl =
       env.SUPABASE_URL +
       "/storage/v1/object/" +
@@ -80,20 +74,28 @@ export async function onRequest({ request, env }) {
       "/" +
       filename;
 
-    // رفع الصورة
     const upload = await fetch(uploadUrl, {
       method: "POST",
+
       headers: {
-        apikey: env.SUPABASE_SECRET_KEY,
-        "Content-Type": file.type,
-        "x-upsert": "false"
+        "Authorization":
+          "Bearer " + env.SUPABASE_SERVICE_ROLE_KEY,
+
+        "apikey":
+          env.SUPABASE_SERVICE_ROLE_KEY,
+
+        "Content-Type":
+          file.type,
+
+        "x-upsert":
+          "false"
       },
+
       body: file
     });
 
     const result = await upload.text();
 
-    // إظهار خطأ Supabase إذا فشل الرفع
     if (!upload.ok) {
       return new Response(
         "Supabase error " +
@@ -106,7 +108,6 @@ export async function onRequest({ request, env }) {
       );
     }
 
-    // إنشاء الرابط العمومي للصورة
     const publicUrl =
       env.SUPABASE_URL +
       "/storage/v1/object/public/" +

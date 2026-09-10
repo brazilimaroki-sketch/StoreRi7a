@@ -1,0 +1,37 @@
+/* StoreRi7a price display V2 */
+#currentPrice,
+#oldPrice{
+  display:inline-flex !important;
+  flex-direction:row !important;
+  align-items:baseline !important;
+  gap:5px !important;
+  direction:ltr !important;
+  unicode-bidi:isolate !important;
+  white-space:nowrap !important;
+}
+
+#savingBox{
+  display:inline-flex !important;
+  flex-direction:row-reverse !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:5px !important;
+  direction:ltr !important;
+  unicode-bidi:isolate !important;
+  white-space:nowrap !important;
+}
+
+#savingBox[hidden]{
+  display:none !important;
+}
+
+.savingLabel{
+  direction:rtl !important;
+}
+
+.savingAmount,
+.priceNumber,
+.priceCurrency{
+  direction:ltr !important;
+  unicode-bidi:isolate !important;
+}

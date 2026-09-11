@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>إتمام الطلب - StoreRi7a</title>
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="/style.css?v=20260911-checkout1">
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;background:#f6f8fb;color:#163f7c;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+    .checkoutPage{min-height:100vh;padding:18px 14px 50px}
+    .checkoutShell{width:min(760px,100%);margin:0 auto}
+    .checkoutTop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+    .checkoutBack{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:#163f7c;background:#fff;border:1px solid #dce5ef;border-radius:999px;padding:10px 14px;font-weight:800}
+    .checkoutBrand{font-weight:900;font-size:18px}
+    .checkoutHero{background:#fff;border:1px solid #dce5ef;border-radius:22px;padding:18px;margin-bottom:14px;box-shadow:0 8px 28px rgba(20,55,100,.06)}
+    .checkoutHero h1{margin:0 0 6px;font-size:24px;color:#163f7c}
+    .checkoutHero p{margin:0;color:#6b7a90;font-size:14px;line-height:1.8}
+    .checkoutCard{background:#fff;border:1px solid #dce5ef;border-radius:22px;padding:16px;margin-bottom:14px;box-shadow:0 8px 28px rgba(20,55,100,.05)}
+    .checkoutCard h2{margin:0 0 14px;font-size:18px;color:#163f7c}
+    .checkoutItems{display:grid;gap:10px}
+    .checkoutItem{display:grid;grid-template-columns:74px minmax(0,1fr) auto;gap:12px;align-items:center;border:1px solid #e5ebf2;border-radius:16px;padding:10px;background:#fff}
+    .checkoutThumb{width:74px;height:74px;border-radius:13px;background:#f8fafc;overflow:hidden;display:grid;place-items:center}
+    .checkoutThumb img{width:100%;height:100%;object-fit:contain;display:block}
+    .checkoutEmoji{font-size:32px}
+    .checkoutItemInfo{min-width:0}
+    .checkoutItemInfo strong{display:block;color:#173d74;font-size:14px;margin-bottom:4px}
+    .checkoutItemInfo small{display:block;color:#8794a8;font-size:11px;margin-bottom:6px}
+    .checkoutLinePrice{font-weight:900;color:#d62828;font-size:13px}
+    .checkoutQty{display:flex;align-items:center;gap:6px;direction:ltr}
+    .checkoutQty button{width:30px;height:30px;border:1px solid #d8e1ec;background:#f8fafc;border-radius:9px;font-size:18px;font-weight:900;color:#163f7c}
+    .checkoutQty span{min-width:24px;text-align:center;font-weight:900}
+    .checkoutTotalBox{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px dashed #dce5ef;margin-top:14px;padding-top:14px}
+    .checkoutTotalBox span{font-weight:800}
+    .checkoutTotalBox strong{font-size:20px;color:#d62828}
+    .checkoutGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .checkoutField{display:grid;gap:6px}
+    .checkoutField.full{grid-column:1/-1}
+    .checkoutField label{font-size:13px;font-weight:800;color:#365a8f}
+    .checkoutField input,.checkoutField textarea{width:100%;border:1px solid #ccd8e7;border-radius:13px;background:#fff;color:#163f7c;font:inherit;font-size:15px;padding:12px 13px;outline:none}
+    .checkoutField textarea{resize:vertical;min-height:86px}
+    .checkoutField input:focus,.checkoutField textarea:focus{border-color:#1764d8;box-shadow:0 0 0 3px rgba(23,100,216,.10)}
+    .checkoutTrust{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+    .checkoutTrust div{background:#eef5ff;border-radius:13px;padding:10px 8px;text-align:center;font-size:11px;font-weight:800;color:#365a8f}
+    .checkoutSubmit{width:100%;border:0;border-radius:15px;background:#20b954;color:#fff;font:inherit;font-size:16px;font-weight:900;padding:14px 16px;cursor:pointer;box-shadow:0 8px 20px rgba(32,185,84,.22)}
+    .checkoutSubmit:disabled{opacity:.6;cursor:not-allowed}
+    .checkoutStatus{margin:12px 0 0;padding:11px 12px;border-radius:12px;font-size:13px;font-weight:800}
+    .checkoutStatus.loading{background:#eef5ff;color:#1764d8}
+    .checkoutStatus.success{background:#eaf9ef;color:#18763a}
+    .checkoutStatus.error{background:#fff0f0;color:#b42318}
+    .checkoutEmpty{text-align:center;background:#fff;border:1px solid #dce5ef;border-radius:20px;padding:30px 18px;color:#6d7d92}
+    .checkoutEmpty a{display:inline-block;margin-top:12px;background:#1764d8;color:#fff;text-decoration:none;border-radius:999px;padding:10px 16px;font-weight:800}
+    @media(max-width:600px){
+      .checkoutPage{padding:12px 10px 38px}
+      .checkoutGrid{grid-template-columns:1fr}
+      .checkoutField.full{grid-column:auto}
+      .checkoutTrust{grid-template-columns:1fr}
+      .checkoutItem{grid-template-columns:62px minmax(0,1fr);align-items:center}
+      .checkoutThumb{width:62px;height:62px}
+      .checkoutQty{grid-column:2;justify-content:flex-start}
+      .checkoutHero h1{font-size:21px}
+    }
+  </style>
+</head>
+<body>
+  <main id="checkoutPage" class="checkoutPage">
+    <div class="checkoutShell">
+
+      <div class="checkoutTop">
+        <a class="checkoutBack" href="/" aria-label="الرجوع للمتجر">← الرجوع للمتجر</a>
+        <div class="checkoutBrand">Ri7A</div>
+      </div>
+
+      <section class="checkoutHero">
+        <h1>إتمام الطلب</h1>
+        <p>أدخل معلومات التوصيل، وسيتم تسجيل الطلب أولاً ثم فتح WhatsApp لإكمال التأكيد.</p>
+      </section>
+
+      <div id="checkoutEmpty" class="checkoutEmpty" hidden>
+        السلة فارغة حالياً.
+        <br>
+        <a href="/">العودة للتسوق</a>
+      </div>
+
+      <section class="checkoutCard">
+        <h2>ملخص الطلب</h2>
+        <div id="checkoutItems" class="checkoutItems"></div>
+
+        <div class="checkoutTotalBox">
+          <span>المجموع</span>
+          <strong id="checkoutTotal"><bdi dir="ltr">0 DH</bdi></strong>
+        </div>
+      </section>
+
+      <form id="checkoutForm" class="checkoutCard" onsubmit="submitCheckout(event)">
+        <h2>معلومات التوصيل</h2>
+
+        <div class="checkoutGrid">
+          <div class="checkoutField">
+            <label for="customer_name">الاسم الكامل *</label>
+            <input id="customer_name" name="customer_name" type="text" autocomplete="name" maxlength="120" required>
+          </div>
+
+          <div class="checkoutField">
+            <label for="customer_phone">رقم الهاتف *</label>
+            <input id="customer_phone" name="customer_phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="06XXXXXXXX" required>
+          </div>
+
+          <div class="checkoutField">
+            <label for="city">المدينة *</label>
+            <input id="city" name="city" type="text" autocomplete="address-level2" maxlength="120" required>
+          </div>
+
+          <div class="checkoutField">
+            <label for="address">العنوان *</label>
+            <input id="address" name="address" type="text" autocomplete="street-address" maxlength="500" required>
+          </div>
+
+          <div class="checkoutField full">
+            <label for="notes">ملاحظات إضافية (اختياري)</label>
+            <textarea id="notes" name="notes" maxlength="1000" placeholder="مثلاً: وقت مناسب للتوصيل..."></textarea>
+          </div>
+        </div>
+
+        <div class="checkoutTrust">
+          <div>💵 الدفع عند الاستلام</div>
+          <div>🚚 التوصيل لجميع المدن</div>
+          <div>💬 التأكيد عبر WhatsApp</div>
+        </div>
+
+        <button id="checkoutSubmit" class="checkoutSubmit" type="submit">
+          تأكيد الطلب عبر WhatsApp
+        </button>
+
+        <div id="checkoutStatus" class="checkoutStatus" hidden></div>
+        <div id="checkoutError" class="checkoutStatus error" hidden></div>
+      </form>
+    </div>
+  </main>
+
+  <script src="/config.js?v=20260911-checkout1"></script>
+  <script src="/app.js?v=20260911-checkout1"></script>
+</body>
+</html>

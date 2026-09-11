@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b3ea8">
+<title>من نحن - StoreRi7a</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+  .legalPage{
+    max-width:900px;
+    margin:0 auto;
+    padding:28px 16px 48px;
+  }
+
+  .legalCard{
+    background:#fff;
+    border-radius:24px;
+    padding:24px 20px;
+    box-shadow:0 12px 35px rgba(0,0,0,.07);
+    line-height:1.9;
+  }
+
+  .legalCard h1{
+    margin:0 0 8px;
+    color:#0b3ea8;
+    font-size:30px;
+  }
+
+  .legalCard h2{
+    margin:28px 0 8px;
+    font-size:20px;
+    color:#222;
+  }
+
+  .legalCard p{
+    margin:8px 0;
+    color:#444;
+  }
+
+  .legalIntro{
+    color:#666;
+    margin-bottom:18px;
+  }
+
+  .legalPoints{
+    margin:12px 0 0;
+    padding:0 20px 0 0;
+  }
+
+  .legalPoints li{
+    margin:8px 0;
+    color:#444;
+  }
+
+  .legalBack{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:16px;
+    text-decoration:none;
+    font-weight:700;
+    color:#0b3ea8;
+  }
+
+  .legalFooterLinks{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px 16px;
+    margin-top:14px;
+  }
+
+  .legalFooterLinks a{
+    color:inherit;
+    text-decoration:none;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="siteHeader">
+  <div class="topBar">
+    <a class="brandLogo" href="/" aria-label="StoreRi7a">
+      <img src="ri7a-logo.png" alt="RI7A">
+    </a>
+
+    <div class="searchBox">
+      <span>⌕</span>
+      <input id="searchTop" type="search" placeholder="ابحث عن منتج..." oninput="searchAll(this.value)">
+    </div>
+
+    <button class="cartTop" type="button" onclick="openCart()" aria-label="السلة">
+      🛒 <b id="cartCount">0</b>
+    </button>
+  </div>
+</header>
+
+<main class="legalPage">
+
+  <a class="legalBack" href="/">← العودة للرئيسية</a>
+
+  <section class="legalCard">
+    <h1>من نحن</h1>
+    <p class="legalIntro">
+      مرحباً بكم في StoreRi7a، متجركم الإلكتروني المختص في العطور ومنتجات التجميل المختارة بعناية.
+    </p>
+
+    <h2>قصتنا</h2>
+    <p>
+      تأسس StoreRi7a بهدف تقديم تجربة تسوق بسيطة وواضحة لكل من يبحث عن عطور للرجال والنساء ومنتجات جمال بأسعار مناسبة وخدمة مريحة.
+    </p>
+
+    <h2>ماذا نقدم؟</h2>
+    <ul class="legalPoints">
+      <li>عطور نسائية مختارة.</li>
+      <li>عطور رجالية متنوعة.</li>
+      <li>منتجات تجميل وعناية.</li>
+      <li>عروض وتخفيضات على منتجات مختارة.</li>
+    </ul>
+
+    <h2>التزامنا</h2>
+    <p>
+      نسعى إلى عرض معلومات واضحة عن المنتجات والأسعار، وتسهيل عملية الطلب، وتقديم خدمة زبناء محترمة وسريعة.
+    </p>
+
+    <h2>التوصيل والدفع</h2>
+    <p>
+      نوفر خدمة التوصيل حسب المناطق المتاحة، مع إمكانية الدفع عند الاستلام عندما تكون هذه الخدمة متوفرة للطلب.
+    </p>
+
+    <h2>تواصلوا معنا</h2>
+    <p>
+      إذا كان لديكم أي سؤال بخصوص منتج أو طلب، يمكنكم التواصل معنا عبر قنوات التواصل المتوفرة في المتجر.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <a href="/" aria-label="العودة للرئيسية">
+    <img src="ri7a-logo.png" alt="RI7A">
+  </a>
+
+  <h3>StoreRi7a</h3>
+  <p>عطور للرجال والنساء • جمال • أناقة</p>
+
+  <div class="legalFooterLinks">
+    <a href="about.html">من نحن</a>
+    <a href="privacy.html">سياسة الخصوصية</a>
+    <a href="terms.html">شروط الاستخدام</a>
+    <a href="returns.html">الإرجاع والاستبدال</a>
+    <a href="shipping.html">الشحن والتوصيل</a>
+    <a href="contact.html">تواصل معنا</a>
+  </div>
+
+  <small>© 2026 StoreRi7a</small>
+</footer>
+
+<div id="cartShade" class="cartShade" onclick="closeCart()"></div>
+
+<aside id="cart" class="cartDrawer">
+  <div class="cartHead">
+    <h2>سلة المشتريات</h2>
+    <button type="button" onclick="closeCart()">✕</button>
+  </div>
+
+  <div id="cartItems"></div>
+
+  <div class="cartTotal">
+    <span>المجموع</span>
+    <b id="total">0 DH</b>
+  </div>
+
+  <button class="waBtn" type="button" onclick="checkout()">
+    إرسال الطلب عبر WhatsApp
+  </button>
+</aside>
+
+<script src="config.js"></script>
+<script src="app.js?v=20260911-speed1"></script>
+
+</body>
+</html>

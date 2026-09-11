@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b3ea8">
+<title>StoreRi7a</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="siteHeader">
+  <div class="topBar">
+    <a class="brandLogo" href="/" aria-label="StoreRi7a"><img src="ri7a-logo.png" alt="RI7A"></a>
+    <div class="searchBox"><span>⌕</span><input id="searchTop" type="search" placeholder="ابحث عن منتج..." oninput="searchAll(this.value)"></div>
+    <button class="cartTop" type="button" onclick="openCart()" aria-label="السلة">🛒 <b id="cartCount">0</b></button>
+  </div>
+</header>
+
+<main id="top" class="page">
+  <section class="hero" aria-label="Store Ri7a">
+    <img src="hero-ri7a.png" alt="Store RI7A - عطور ومنتجات للرجال والنساء">
+  </section>
+
+  <nav class="mainNav homeNav" aria-label="الأقسام الرئيسية">
+    <a class="active" href="#top">⌂ الرئيسية</a>
+    <a href="#women">♀ عطور نسائية</a>
+    <a href="#men">♂ عطور رجالية</a>
+    <a href="#beauty">▣ مواد التجميل</a>
+  </nav>
+
+  <section class="section firstSection" id="discounts">
+    <div class="sectionTitle">
+      <div><span class="eyebrow">SPECIAL OFFERS</span><h2>🔥 منتجات مخفضة</h2><p>أفضل العروض على عطور ومنتجات مختارة</p></div>
+      <a href="category.html?cat=discounts">عرض الكل</a>
+    </div>
+    <div id="discountGrid" class="productGrid"></div>
+  </section>
+
+  <section class="section" id="women">
+    <div class="sectionTitle">
+      <div><span class="eyebrow">FOR HER</span><h2>العطور النسائية</h2></div>
+      <a href="category.html?cat=women">عرض الكل</a>
+    </div>
+    <div id="womenGrid" class="productGrid"></div>
+  </section>
+
+  <section class="section" id="men">
+    <div class="sectionTitle">
+      <div><span class="eyebrow">FOR HIM</span><h2>العطور الرجالية</h2></div>
+      <a href="category.html?cat=men">عرض الكل</a>
+    </div>
+    <div id="menGrid" class="productGrid"></div>
+  </section>
+
+  <section class="section" id="beauty">
+    <div class="sectionTitle">
+      <div><span class="eyebrow">BEAUTY</span><h2>مواد التجميل</h2></div>
+      <a href="category.html?cat=beauty">عرض الكل</a>
+    </div>
+    <div id="beautyGrid" class="productGrid"></div>
+  </section>
+
+  <section class="services">
+    <article><span>🚚</span><b>توصيل لجميع المدن</b><small>بسرعة وأمان</small></article>
+    <article><span>💵</span><b>الدفع عند الاستلام</b><small>بكل سهولة</small></article>
+    <article><span>💬</span><b>خدمة الزبناء</b><small>عبر WhatsApp</small></article>
+  </section>
+</main>
+
+<footer>
+  <a href="/" aria-label="العودة للرئيسية"><img src="ri7a-logo.png" alt="RI7A"></a>
+  <h3>StoreRi7a</h3>
+  <p>عطور للرجال والنساء • جمال • أناقة</p>
+  <small>© 2026 StoreRi7a</small>
+</footer>
+
+<div id="cartShade" class="cartShade" onclick="closeCart()"></div>
+<aside id="cart" class="cartDrawer">
+  <div class="cartHead"><h2>سلة المشتريات</h2><button type="button" onclick="closeCart()">✕</button></div>
+  <div id="cartItems"></div>
+  <div class="cartTotal"><span>المجموع</span><b id="total">0 DH</b></div>
+  <button class="waBtn" type="button" onclick="checkout()">إرسال الطلب عبر WhatsApp</button>
+</aside>
+
+<script src="config.js"></script>
+<script src="app.js?v=20260911-speed1"></script>
+</body>
+</html>

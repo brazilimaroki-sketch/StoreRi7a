@@ -3,69 +3,219 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>لوحة إدارة StoreRi7a</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f7f8fc;font-family:Arial,Tahoma,sans-serif;color:#172033}
-.wrap{max-width:950px;margin:auto;padding:18px}
-h1{color:#16489d}
-.card{background:#fff;border:1px solid #dfe6f2;border-radius:18px;padding:16px;margin-bottom:16px;box-shadow:0 8px 25px #163a7210}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.full{grid-column:1/-1}
-label{display:block;font-size:13px;color:#667085;margin:4px 0}
-input,select,textarea{width:100%;border:1px solid #d6dfed;border-radius:12px;padding:0 12px;font-size:15px;background:#fff}
-input,select{height:46px}
-textarea{min-height:120px;padding:12px;resize:vertical;font-family:inherit}
-button{border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer}
-.primary{background:#174ea6;color:#fff}
-.secondary{background:#eef3fb;color:#17427d}
-.danger{background:#ffebef;color:#b10032}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.msg{padding:10px;border-radius:10px;margin-top:10px;display:none}
-.ok{background:#e8fff0;color:#08752f;display:block}
-.err{background:#ffecee;color:#a60021;display:block}
-.typeSwitch{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.typeSwitch button.active{background:#174ea6;color:#fff}
+*{
+  box-sizing:border-box
+}
+
+body{
+  margin:0;
+  background:#f7f8fc;
+  font-family:Arial,Tahoma,sans-serif;
+  color:#172033
+}
+
+.wrap{
+  max-width:1050px;
+  margin:auto;
+  padding:18px
+}
+
+h1{
+  color:#16489d;
+  margin-top:5px
+}
+
+h3{
+  margin-top:0;
+  color:#183f77
+}
+
+.card{
+  background:#fff;
+  border:1px solid #dfe6f2;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:16px;
+  box-shadow:0 8px 25px #163a7210
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px
+}
+
+.full{
+  grid-column:1/-1
+}
+
+label{
+  display:block;
+  font-size:13px;
+  color:#667085;
+  margin:4px 0 6px
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  border:1px solid #d6dfed;
+  border-radius:12px;
+  padding:0 12px;
+  font-size:15px;
+  background:#fff;
+  outline:none
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#1764d8;
+  box-shadow:0 0 0 3px #1764d815
+}
+
+input,
+select{
+  height:46px
+}
+
+textarea{
+  min-height:120px;
+  padding:12px;
+  resize:vertical;
+  font-family:inherit
+}
+
+button{
+  border:0;
+  border-radius:12px;
+  padding:12px 16px;
+  font-weight:700;
+  cursor:pointer;
+  font-family:inherit
+}
+
+button:disabled{
+  opacity:.55;
+  cursor:not-allowed
+}
+
+.primary{
+  background:#174ea6;
+  color:#fff
+}
+
+.secondary{
+  background:#eef3fb;
+  color:#17427d
+}
+
+.danger{
+  background:#ffebef;
+  color:#b10032
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px
+}
+
+.msg{
+  padding:11px 13px;
+  border-radius:10px;
+  margin-top:12px;
+  display:none;
+  line-height:1.6
+}
+
+.ok{
+  background:#e8fff0;
+  color:#08752f;
+  display:block
+}
+
+.err{
+  background:#ffecee;
+  color:#a60021;
+  display:block
+}
+
+.typeSwitch{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:16px
+}
+
+.typeSwitch button.active{
+  background:#174ea6;
+  color:#fff
+}
+
+/* ===== الصور ===== */
 
 .multiUploadBox{
   border:2px dashed #c8d7ee;
   border-radius:16px;
   padding:18px;
-  background:#fbfdff;
+  background:#fbfdff
 }
+
 .multiUploadTop{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:10px;
-  flex-wrap:wrap;
+  flex-wrap:wrap
 }
-.multiUploadTop strong{color:#174ea6}
-.hint{font-size:12px;color:#7b8798;margin-top:6px}
+
+.multiUploadTop strong{
+  color:#174ea6
+}
+
+.hint{
+  font-size:12px;
+  color:#7b8798;
+  margin-top:6px;
+  line-height:1.6
+}
+
 .galleryPreview{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(4,minmax(0,1fr));
   gap:10px;
-  margin-top:14px;
+  margin-top:14px
 }
+
 .galleryItem{
   position:relative;
   border:1px solid #dce5f1;
   border-radius:14px;
   overflow:hidden;
   background:#fff;
-  min-height:150px;
-  padding-bottom:42px;
+  min-height:195px;
+  padding-bottom:44px
 }
+
 .galleryItem.main{
-  outline:3px solid #1764d8;
+  outline:3px solid #1764d8
 }
+
 .galleryItem img{
   width:100%;
   height:150px;
-  object-fit:cover;
-  display:block;
+  object-fit:contain;
+  background:#f8f9fc;
+  display:block
 }
+
 .galleryTools{
   position:absolute;
   inset:auto 0 0 0;
@@ -74,484 +224,2764 @@ button{border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:poin
   justify-content:center;
   padding:6px;
   background:#fff;
+  border-top:1px solid #edf1f6
 }
+
 .galleryTools button{
-  padding:6px 8px;
-  font-size:11px;
-  border-radius:8px;
+  padding:6px 7px;
+  font-size:10px;
+  border-radius:8px
 }
+
 .mainTag{
   position:absolute;
   top:6px;
   right:6px;
+  z-index:3;
   background:#1764d8;
   color:#fff;
   border-radius:999px;
-  padding:4px 8px;
+  padding:5px 9px;
   font-size:10px;
-  font-weight:700;
+  font-weight:700
 }
+
+.newTag{
+  position:absolute;
+  bottom:50px;
+  right:6px;
+  z-index:3;
+  background:#17894b;
+  color:#fff;
+  border-radius:999px;
+  padding:4px 8px;
+  font-size:9px
+}
+
 .removeBtn{
   position:absolute;
   top:6px;
   left:6px;
-  width:28px;
-  height:28px;
+  width:30px;
+  height:30px;
   border-radius:50%;
   padding:0;
   background:#fff0f0;
   color:#b10032;
-  z-index:2;
+  z-index:4
 }
-.uploadStatus{font-size:13px;color:#667085;margin-top:8px}
-.item{display:grid;grid-template-columns:1fr auto;gap:10px;border-top:1px solid #eee;padding:14px 0}
-.item:first-child{border-top:0}
-.meta{font-size:13px;color:#7a8494;margin-top:5px;line-height:1.6}
-.sale{color:#d71920;font-weight:800}
-@media(max-width:650px){
-  .grid{grid-template-columns:1fr}
-  .full{grid-column:auto}
-  .item{grid-template-columns:1fr}
-  .galleryPreview{grid-template-columns:repeat(2,1fr)}
+
+.uploadStatus{
+  font-size:13px;
+  color:#667085;
+  margin-top:10px;
+  line-height:1.6
+}
+
+/* ===== البحث والفلترة ===== */
+
+.productToolbar{
+  display:grid;
+  grid-template-columns:1fr 220px;
+  gap:10px;
+  margin-bottom:12px
+}
+
+.productCount{
+  font-size:13px;
+  color:#667085;
+  margin-bottom:8px
+}
+
+/* ===== المنتجات ===== */
+
+.item{
+  display:grid;
+  grid-template-columns:78px 1fr auto;
+  gap:12px;
+  align-items:center;
+  border-top:1px solid #eee;
+  padding:14px 0
+}
+
+.item:first-child{
+  border-top:0
+}
+
+.itemImage{
+  width:78px;
+  height:78px;
+  border-radius:12px;
+  border:1px solid #e0e7f1;
+  object-fit:contain;
+  background:#fafbfe
+}
+
+.itemPlaceholder{
+  width:78px;
+  height:78px;
+  border-radius:12px;
+  background:#f1f4f9;
+  display:grid;
+  place-items:center;
+  font-size:28px
+}
+
+.meta{
+  font-size:13px;
+  color:#7a8494;
+  margin-top:5px;
+  line-height:1.6
+}
+
+.sale{
+  color:#d71920;
+  font-weight:800
+}
+
+.normalPrice{
+  color:#173f78;
+  font-weight:700
+}
+
+.empty{
+  text-align:center;
+  padding:30px 10px;
+  color:#7d8796
+}
+
+@media(max-width:700px){
+
+  .wrap{
+    padding:10px
+  }
+
+  .grid{
+    grid-template-columns:1fr
+  }
+
+  .full{
+    grid-column:auto
+  }
+
+  .galleryPreview{
+    grid-template-columns:repeat(2,minmax(0,1fr))
+  }
+
+  .productToolbar{
+    grid-template-columns:1fr
+  }
+
+  .item{
+    grid-template-columns:68px 1fr
+  }
+
+  .item .actions{
+    grid-column:1/-1;
+    margin-top:0
+  }
+
+  .itemImage,
+  .itemPlaceholder{
+    width:68px;
+    height:68px
+  }
 }
 </style>
 </head>
+
 <body>
+
 <div class="wrap">
+
 <h1>لوحة إدارة StoreRi7a</h1>
 
-<div class="card">
-  <h3>مفتاح الإدارة</h3>
-  <label>ADMIN_KEY</label>
-  <input id="adminKey" type="password" placeholder="ADMIN_KEY">
-  <div class="actions">
-    <button class="secondary" onclick="saveKey()">حفظ المفتاح</button>
-    <button class="secondary" onclick="loadProducts()">تحديث المنتجات</button>
-  </div>
-</div>
+
+<!-- ADMIN KEY -->
 
 <div class="card">
-  <h3 id="formTitle">إضافة منتج</h3>
+
+  <h3>مفتاح الإدارة</h3>
+
+  <label>ADMIN_KEY</label>
+
+  <input
+    id="adminKey"
+    type="password"
+    placeholder="ADMIN_KEY"
+    autocomplete="off"
+  >
+
+  <div class="actions">
+
+    <button
+      class="secondary"
+      onclick="saveKey()"
+    >
+      حفظ المفتاح
+    </button>
+
+    <button
+      class="secondary"
+      onclick="loadProducts()"
+    >
+      تحديث المنتجات
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- PRODUCT FORM -->
+
+<div class="card">
+
+  <h3 id="formTitle">
+    إضافة منتج
+  </h3>
+
 
   <div class="typeSwitch">
-    <button id="normalBtn" class="secondary active" type="button" onclick="setProductType(false)">منتج بدون تخفيض</button>
-    <button id="saleBtn" class="secondary" type="button" onclick="setProductType(true)">منتج بتخفيض</button>
+
+    <button
+      id="normalBtn"
+      class="secondary active"
+      type="button"
+      onclick="setProductType(false)"
+    >
+      منتج بدون تخفيض
+    </button>
+
+
+    <button
+      id="saleBtn"
+      class="secondary"
+      type="button"
+      onclick="setProductType(true)"
+    >
+      منتج بتخفيض
+    </button>
+
   </div>
+
 
   <div class="grid">
-    <div><label>اسم المنتج</label><input id="productName" placeholder="مثال: Rose Velvet"></div>
-    <div><label>القسم</label><select id="productCategory"><option>عطور نسائية</option><option>عطور رجالية</option><option>مواد التجميل</option></select></div>
-    <div><label>الماركة</label><input id="productBrand" placeholder="مثال: Lattafa"></div>
-    <div><label>الحجم / السعة</label><input id="productSize" placeholder="مثال: 120 ml"></div>
-    <div><label>السعر العادي (DH)</label><input id="productPrice" type="number" min="0" step="0.01"></div>
-    <div id="salePriceWrap" style="display:none"><label>سعر التخفيض</label><input id="productSalePrice" type="number" min="0" step="0.01" oninput="syncDiscount()"></div>
-    <div id="discountWrap" style="display:none"><label>نسبة التخفيض %</label><input id="productDiscount" type="number" min="0" max="100" oninput="syncSalePrice()"></div>
 
-    <div class="full">
-      <label>وصف المنتج</label>
-      <textarea id="productDescription"></textarea>
+
+    <div>
+
+      <label>
+        اسم المنتج
+      </label>
+
+      <input
+        id="productName"
+        placeholder="مثال: Qaa'ed Lattafa"
+      >
+
     </div>
 
+
+    <div>
+
+      <label>
+        القسم
+      </label>
+
+      <select id="productCategory">
+
+        <option value="عطور نسائية">
+          عطور نسائية
+        </option>
+
+        <option value="عطور رجالية">
+          عطور رجالية
+        </option>
+
+        <option value="مواد التجميل">
+          مواد التجميل
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div>
+
+      <label>
+        الماركة
+      </label>
+
+      <input
+        id="productBrand"
+        placeholder="مثال: Lattafa"
+      >
+
+    </div>
+
+
+    <div>
+
+      <label>
+        الحجم / السعة
+      </label>
+
+      <input
+        id="productSize"
+        placeholder="مثال: 100 ml"
+      >
+
+    </div>
+
+
+    <div>
+
+      <label>
+        السعر العادي (DH)
+      </label>
+
+      <input
+        id="productPrice"
+        type="number"
+        min="0"
+        step="0.01"
+        oninput="handleNormalPriceChange()"
+      >
+
+    </div>
+
+
+    <div
+      id="salePriceWrap"
+      style="display:none"
+    >
+
+      <label>
+        سعر التخفيض
+      </label>
+
+      <input
+        id="productSalePrice"
+        type="number"
+        min="0"
+        step="0.01"
+        oninput="syncDiscount()"
+      >
+
+    </div>
+
+
+    <div
+      id="discountWrap"
+      style="display:none"
+    >
+
+      <label>
+        نسبة التخفيض %
+      </label>
+
+      <input
+        id="productDiscount"
+        type="number"
+        min="0"
+        max="99"
+        step="1"
+        oninput="syncSalePrice()"
+      >
+
+    </div>
+
+
     <div class="full">
-      <label>صور المنتج</label>
+
+      <label>
+        وصف المنتج
+      </label>
+
+      <textarea
+        id="productDescription"
+        placeholder="اكتب وصف المنتج..."
+      ></textarea>
+
+    </div>
+
+
+    <!-- IMAGES -->
+
+    <div class="full">
+
+      <label>
+        صور المنتج
+      </label>
+
+
       <div class="multiUploadBox">
+
+
         <div class="multiUploadTop">
+
+
           <div>
-            <strong>يمكنك إضافة عدة صور للمنتج</strong>
-            <div class="hint">حتى 12 صورة — JPEG / PNG / WebP — الحد الأقصى 5MB لكل صورة</div>
+
+            <strong>
+              إضافة صور المنتج
+            </strong>
+
+            <div class="hint">
+              حتى 12 صورة —
+              JPEG / PNG / WebP —
+              الحد الأقصى 5MB لكل صورة.
+            </div>
+
           </div>
-          <label class="primary" style="display:inline-flex;align-items:center;gap:7px;cursor:pointer;padding:12px 16px;border-radius:12px">
-            📷 اختر عدة صور
-            <input id="productImageFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple onchange="previewNewFiles()" style="display:none">
+
+
+          <label
+            class="primary"
+            style="
+              display:inline-flex;
+              align-items:center;
+              gap:7px;
+              cursor:pointer;
+              padding:12px 16px;
+              border-radius:12px;
+              color:white;
+            "
+          >
+
+            📷 اختر الصور
+
+            <input
+              id="productImageFiles"
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              multiple
+              onchange="previewNewFiles()"
+              style="display:none"
+            >
+
           </label>
+
         </div>
 
-        <div id="galleryPreview" class="galleryPreview"></div>
-        <div class="uploadStatus" id="uploadStatus">الصورة الأولى ستكون رئيسية، ويمكنك تغيير الصورة الرئيسية من الأسفل.</div>
+
+        <div
+          id="galleryPreview"
+          class="galleryPreview"
+        ></div>
+
+
+        <div
+          class="uploadStatus"
+          id="uploadStatus"
+        >
+          الصورة الأولى ستكون رئيسية افتراضياً.
+        </div>
+
+
       </div>
+
     </div>
+
+
   </div>
+
 
   <div class="actions">
-    <button class="primary" id="saveBtn" onclick="saveProduct()">إضافة المنتج</button>
-    <button class="secondary" id="cancelBtn" onclick="resetForm()" style="display:none">إلغاء التعديل</button>
+
+    <button
+      class="primary"
+      id="saveBtn"
+      onclick="saveProduct()"
+    >
+      إضافة المنتج
+    </button>
+
+
+    <button
+      class="secondary"
+      id="cancelBtn"
+      onclick="resetForm()"
+      style="display:none"
+    >
+      إلغاء التعديل
+    </button>
+
   </div>
 
-  <div id="message" class="msg"></div>
+
+  <div
+    id="message"
+    class="msg"
+  ></div>
+
+
 </div>
+
+
+
+<!-- PRODUCT LIST -->
 
 <div class="card">
-  <h3>المنتجات الحالية</h3>
-  <div id="productList">جاري التحميل...</div>
+
+  <h3>
+    المنتجات الحالية
+  </h3>
+
+
+  <div class="productToolbar">
+
+
+    <input
+      id="productSearch"
+      placeholder="🔎 البحث عن منتج..."
+      oninput="renderProducts()"
+    >
+
+
+    <select
+      id="productFilter"
+      onchange="renderProducts()"
+    >
+
+      <option value="all">
+        جميع المنتجات
+      </option>
+
+      <option value="women">
+        العطور النسائية
+      </option>
+
+      <option value="men">
+        العطور الرجالية
+      </option>
+
+      <option value="beauty">
+        مواد التجميل
+      </option>
+
+      <option value="sale">
+        المنتجات المخفضة
+      </option>
+
+    </select>
+
+
+  </div>
+
+
+  <div
+    id="productCount"
+    class="productCount"
+  ></div>
+
+
+  <div id="productList">
+    جاري التحميل...
+  </div>
+
+
 </div>
+
+
 </div>
+
 
 <script>
+
+/* =====================================================
+   GLOBALS
+===================================================== */
+
 let editingId=null;
+
 let products=[];
+
 let saleMode=false;
-let galleryUrls=[];
-let pendingFiles=[];
+
+/*
+galleryItems:
+
+{
+  type: "url" | "file",
+  value: url أو File,
+  preview: preview url للصورة الجديدة
+}
+*/
+
+let galleryItems=[];
+
 let mainImageIndex=0;
 
-const $=id=>document.getElementById(id);
+let savingProduct=false;
+
+const MAX_IMAGES=12;
+
+const MAX_FILE_SIZE=
+  5*1024*1024;
+
+
+const $=
+  id=>document.getElementById(id);
+
+
+/* =====================================================
+   ADMIN KEY
+===================================================== */
 
 function key(){
-  return localStorage.getItem('storeri7a_admin_key')||$('adminKey').value.trim();
+
+  return (
+    localStorage.getItem(
+      'storeri7a_admin_key'
+    )
+    ||
+    $('adminKey').value.trim()
+  );
+
 }
+
 
 function saveKey(){
-  localStorage.setItem('storeri7a_admin_key',$('adminKey').value.trim());
-  show('✅ تم حفظ المفتاح','ok');
+
+  const value=
+    $('adminKey').value.trim();
+
+  if(!value){
+
+    show(
+      '❌ أدخل ADMIN_KEY أولاً',
+      'err'
+    );
+
+    return;
+
+  }
+
+  localStorage.setItem(
+    'storeri7a_admin_key',
+    value
+  );
+
+  show(
+    '✅ تم حفظ المفتاح',
+    'ok'
+  );
+
   loadProducts();
+
 }
 
-function show(text,type='ok'){
+
+/* =====================================================
+   MESSAGES
+===================================================== */
+
+function show(
+  text,
+  type='ok'
+){
+
   const m=$('message');
+
   m.textContent=text;
-  m.className='msg '+type;
+
+  m.className=
+    'msg '+type;
+
 }
+
+
+function clearMessage(){
+
+  $('message').className='msg';
+
+  $('message').textContent='';
+
+}
+
+
+/* =====================================================
+   SECURITY / HELPERS
+===================================================== */
 
 function esc(v){
-  return String(v??'').replace(/[&<>"']/g,m=>({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-  }[m]));
+
+  return String(v??'')
+    .replace(
+      /[&<>"']/g,
+      m=>({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#39;'
+      }[m])
+    );
+
 }
+
+
+function attr(v){
+  return esc(v);
+}
+
 
 function parseImages(v){
-  if(Array.isArray(v)) return v.filter(Boolean);
-  if(typeof v==='string'&&v.trim()){
-    try{
-      const a=JSON.parse(v);
-      if(Array.isArray(a)) return a.filter(Boolean);
-    }catch(e){}
+
+  if(Array.isArray(v)){
+
+    return v.filter(Boolean);
+
   }
+
+
+  if(
+    typeof v==='string'
+    &&
+    v.trim()
+  ){
+
+    try{
+
+      const a=
+        JSON.parse(v);
+
+      if(Array.isArray(a)){
+
+        return a.filter(Boolean);
+
+      }
+
+    }catch(e){}
+
+  }
+
   return [];
+
 }
+
+
+function normalizeCategory(c){
+
+  c=
+    String(c||'').trim();
+
+
+  if([
+    'عطور نسائية',
+    'نسائية',
+    'عطر نسائي'
+  ].includes(c)){
+
+    return 'عطور نسائية';
+
+  }
+
+
+  if([
+    'عطور رجالية',
+    'رجالية',
+    'عطر رجالي'
+  ].includes(c)){
+
+    return 'عطور رجالية';
+
+  }
+
+
+  if([
+    'تجميل',
+    'مواد التجميل',
+    'مستحضرات التجميل'
+  ].includes(c)){
+
+    return 'مواد التجميل';
+
+  }
+
+
+  return c;
+
+}
+
+
+/* =====================================================
+   SALE
+===================================================== */
 
 function setProductType(s){
+
   saleMode=!!s;
-  $('normalBtn').classList.toggle('active',!saleMode);
-  $('saleBtn').classList.toggle('active',saleMode);
-  $('salePriceWrap').style.display=saleMode?'block':'none';
-  $('discountWrap').style.display=saleMode?'block':'none';
+
+
+  $('normalBtn')
+    .classList
+    .toggle(
+      'active',
+      !saleMode
+    );
+
+
+  $('saleBtn')
+    .classList
+    .toggle(
+      'active',
+      saleMode
+    );
+
+
+  $('salePriceWrap')
+    .style
+    .display=
+      saleMode
+      ?'block'
+      :'none';
+
+
+  $('discountWrap')
+    .style
+    .display=
+      saleMode
+      ?'block'
+      :'none';
+
+
   if(!saleMode){
+
     $('productSalePrice').value='';
+
     $('productDiscount').value='';
+
   }
+
 }
+
+
+function handleNormalPriceChange(){
+
+  if(!saleMode) return;
+
+
+  if(
+    $('productDiscount').value
+  ){
+
+    syncSalePrice();
+
+  }else if(
+    $('productSalePrice').value
+  ){
+
+    syncDiscount();
+
+  }
+
+}
+
 
 function syncDiscount(){
-  const p=Number($('productPrice').value||0);
-  const s=Number($('productSalePrice').value||0);
-  if(p>0&&s>0&&s<p){
-    $('productDiscount').value=Math.round((1-s/p)*100);
+
+  const p=
+    Number(
+      $('productPrice').value||0
+    );
+
+  const s=
+    Number(
+      $('productSalePrice').value||0
+    );
+
+
+  if(
+    p>0
+    &&
+    s>=0
+    &&
+    s<p
+  ){
+
+    $('productDiscount').value=
+      Math.round(
+        (1-s/p)*100
+      );
+
+  }else{
+
+    $('productDiscount').value='';
+
   }
+
 }
+
 
 function syncSalePrice(){
-  const p=Number($('productPrice').value||0);
-  const d=Number($('productDiscount').value||0);
-  if(p>0&&d>0&&d<100){
-    $('productSalePrice').value=(p*(1-d/100)).toFixed(2).replace(/\.00$/,'');
+
+  const p=
+    Number(
+      $('productPrice').value||0
+    );
+
+  const d=
+    Number(
+      $('productDiscount').value||0
+    );
+
+
+  if(
+    p>0
+    &&
+    d>0
+    &&
+    d<100
+  ){
+
+    $('productSalePrice').value=
+      (
+        p*(1-d/100)
+      )
+      .toFixed(2)
+      .replace(/\.00$/,'');
+
+  }else{
+
+    $('productSalePrice').value='';
+
   }
+
 }
+
+
+/* =====================================================
+   FILE PREVIEW
+===================================================== */
 
 function previewNewFiles(){
-  const incoming=Array.from($('productImageFiles').files||[]);
-  const free=Math.max(0,12-(galleryUrls.length+pendingFiles.length));
-  pendingFiles=[...pendingFiles,...incoming.slice(0,free)];
-  $('productImageFiles').value='';
+
+  clearMessage();
+
+
+  const input=
+    $('productImageFiles');
+
+
+  const incoming=
+    Array.from(
+      input.files||[]
+    );
+
+
+  input.value='';
+
+
+  if(!incoming.length){
+    return;
+  }
+
+
+  const remaining=
+    MAX_IMAGES-
+    galleryItems.length;
+
+
+  if(remaining<=0){
+
+    show(
+      '❌ الحد الأقصى هو 12 صورة',
+      'err'
+    );
+
+    return;
+  }
+
+
+  let added=0;
+
+  let rejected=[];
+
+
+  for(
+    const file
+    of incoming
+  ){
+
+    if(
+      galleryItems.length>=
+      MAX_IMAGES
+    ){
+
+      rejected.push(
+        file.name+
+        ' — تجاوز عدد الصور'
+      );
+
+      continue;
+
+    }
+
+
+    if(
+      ![
+        'image/jpeg',
+        'image/png',
+        'image/webp'
+      ].includes(file.type)
+    ){
+
+      rejected.push(
+        file.name+
+        ' — نوع غير مدعوم'
+      );
+
+      continue;
+
+    }
+
+
+    if(
+      file.size>
+      MAX_FILE_SIZE
+    ){
+
+      rejected.push(
+        file.name+
+        ' — أكبر من 5MB'
+      );
+
+      continue;
+
+    }
+
+
+    const preview=
+      URL.createObjectURL(
+        file
+      );
+
+
+    galleryItems.push({
+
+      type:'file',
+
+      value:file,
+
+      preview
+
+    });
+
+
+    added++;
+
+  }
+
+
+  if(
+    galleryItems.length===added
+  ){
+
+    mainImageIndex=0;
+
+  }
+
+
   renderGalleryPreview();
+
+
+  if(rejected.length){
+
+    show(
+      '⚠️ بعض الصور لم تتم إضافتها:\n'+
+      rejected.join(' | '),
+      'err'
+    );
+
+  }else{
+
+    $('uploadStatus')
+      .textContent=
+      `تم اختيار ${galleryItems.length} صورة.`;
+
+  }
+
 }
 
-function allPreviewItems(){
-  return [
-    ...galleryUrls.map((url,i)=>({type:'url',value:url,index:i})),
-    ...pendingFiles.map((file,i)=>({type:'file',value:file,index:i}))
-  ];
+
+/* =====================================================
+   GALLERY
+===================================================== */
+
+function imageSource(item){
+
+  if(!item){
+    return '';
+  }
+
+
+  if(item.type==='url'){
+
+    return item.value;
+
+  }
+
+
+  return item.preview||'';
+
 }
+
 
 function renderGalleryPreview(){
-  const items=allPreviewItems();
 
-  if(!items.length){
-    $('galleryPreview').innerHTML='<div class="hint">لا توجد صور بعد.</div>';
+  const box=
+    $('galleryPreview');
+
+
+  if(!galleryItems.length){
+
+    box.innerHTML=
+      '<div class="hint">لا توجد صور بعد.</div>';
+
     mainImageIndex=0;
+
+    $('uploadStatus')
+      .textContent=
+      'الصورة الأولى ستكون رئيسية افتراضياً.';
+
+    return;
+
+  }
+
+
+  if(
+    mainImageIndex>=
+    galleryItems.length
+  ){
+
+    mainImageIndex=0;
+
+  }
+
+
+  box.innerHTML=
+    galleryItems
+    .map(
+      (item,i)=>{
+
+        const src=
+          imageSource(item);
+
+
+        return `
+
+        <div
+          class="
+            galleryItem
+            ${
+              i===mainImageIndex
+              ?'main'
+              :''
+            }
+          "
+        >
+
+          ${
+            i===mainImageIndex
+
+            ?'<span class="mainTag">رئيسية</span>'
+
+            :''
+          }
+
+
+          ${
+            item.type==='file'
+
+            ?'<span class="newTag">جديدة</span>'
+
+            :''
+          }
+
+
+          <button
+            class="removeBtn"
+            type="button"
+            onclick="removeImageAt(${i})"
+            title="حذف الصورة"
+          >
+            ✕
+          </button>
+
+
+          <img
+            src="${attr(src)}"
+            alt="صورة المنتج"
+          >
+
+
+          <div class="galleryTools">
+
+
+            <button
+              class="secondary"
+              type="button"
+              onclick="setMainImage(${i})"
+            >
+              ${
+                i===mainImageIndex
+
+                ?'✓ الرئيسية'
+
+                :'رئيسية'
+              }
+            </button>
+
+
+            ${
+              i>0
+
+              ?`
+              <button
+                class="secondary"
+                type="button"
+                onclick="moveImage(${i},-1)"
+                title="تحريك"
+              >
+                →
+              </button>
+              `
+
+              :''
+            }
+
+
+            ${
+              i<
+              galleryItems.length-1
+
+              ?`
+              <button
+                class="secondary"
+                type="button"
+                onclick="moveImage(${i},1)"
+                title="تحريك"
+              >
+                ←
+              </button>
+              `
+
+              :''
+            }
+
+
+          </div>
+
+        </div>
+
+        `;
+
+      }
+    )
+    .join('');
+
+
+  $('uploadStatus')
+    .textContent=
+      `${galleryItems.length} / ${MAX_IMAGES} صورة`;
+
+}
+
+
+function removeImageAt(index){
+
+  const item=
+    galleryItems[index];
+
+
+  if(!item){
     return;
   }
 
-  if(mainImageIndex>=items.length) mainImageIndex=0;
 
-  $('galleryPreview').innerHTML=items.map((item,i)=>{
-    const src=item.type==='url' ? item.value : URL.createObjectURL(item.value);
-    return `
-      <div class="galleryItem ${i===mainImageIndex?'main':''}">
-        ${i===mainImageIndex?'<span class="mainTag">رئيسية</span>':''}
-        <button class="removeBtn" type="button" onclick="removeImageAt(${i})">✕</button>
-        <img src="${esc(src)}">
-        <div class="galleryTools">
-          <button class="secondary" type="button" onclick="setMainImage(${i})">${i===mainImageIndex?'✓ الرئيسية':'تعيين كرئيسية'}</button>
-          ${i>0?`<button class="secondary" type="button" onclick="moveImage(${i},-1)">→</button>`:''}
-          ${i<items.length-1?`<button class="secondary" type="button" onclick="moveImage(${i},1)">←</button>`:''}
-        </div>
-      </div>
-    `;
-  }).join('');
-}
+  if(
+    item.type==='file'
+    &&
+    item.preview
+  ){
 
-function removeImageAt(globalIndex){
-  const urlCount=galleryUrls.length;
-  if(globalIndex<urlCount){
-    galleryUrls.splice(globalIndex,1);
-  }else{
-    pendingFiles.splice(globalIndex-urlCount,1);
+    try{
+
+      URL.revokeObjectURL(
+        item.preview
+      );
+
+    }catch(e){}
+
   }
-  if(mainImageIndex===globalIndex) mainImageIndex=0;
-  if(mainImageIndex>globalIndex) mainImageIndex--;
+
+
+  galleryItems.splice(
+    index,
+    1
+  );
+
+
+  if(
+    mainImageIndex===index
+  ){
+
+    mainImageIndex=0;
+
+  }else if(
+    mainImageIndex>index
+  ){
+
+    mainImageIndex--;
+
+  }
+
+
   renderGalleryPreview();
+
 }
+
 
 function setMainImage(index){
+
+  if(
+    index<0
+    ||
+    index>=galleryItems.length
+  ){
+
+    return;
+
+  }
+
+
   mainImageIndex=index;
-  renderGalleryPreview();
-}
-
-function moveImage(index,delta){
-  const items=allPreviewItems();
-  const target=index+delta;
-  if(target<0||target>=items.length)return;
-
-  [items[index],items[target]]=[items[target],items[index]];
-
-  galleryUrls=items.filter(x=>x.type==='url').map(x=>x.value);
-  pendingFiles=items.filter(x=>x.type==='file').map(x=>x.value);
-
-  if(mainImageIndex===index) mainImageIndex=target;
-  else if(mainImageIndex===target) mainImageIndex=index;
 
   renderGalleryPreview();
+
 }
+
+
+function moveImage(
+  index,
+  delta
+){
+
+  const target=
+    index+delta;
+
+
+  if(
+    target<0
+    ||
+    target>=
+    galleryItems.length
+  ){
+
+    return;
+
+  }
+
+
+  const temp=
+    galleryItems[index];
+
+
+  galleryItems[index]=
+    galleryItems[target];
+
+
+  galleryItems[target]=
+    temp;
+
+
+  if(
+    mainImageIndex===index
+  ){
+
+    mainImageIndex=target;
+
+  }else if(
+    mainImageIndex===target
+  ){
+
+    mainImageIndex=index;
+
+  }
+
+
+  renderGalleryPreview();
+
+}
+
+
+/* =====================================================
+   UPLOAD
+===================================================== */
 
 async function uploadOne(file){
-  const form=new FormData();
-  form.append('image',file);
 
-  const r=await fetch('/api/upload-image',{
-    method:'POST',
-    headers:{'x-admin-key':key()},
-    body:form
-  });
+  const form=
+    new FormData();
 
-  const text=await r.text();
-  if(!r.ok) throw new Error(text||('HTTP '+r.status));
 
-  const data=JSON.parse(text);
-  if(!data.url) throw new Error('لم يتم إرجاع رابط الصورة');
+  form.append(
+    'image',
+    file
+  );
 
-  return data.url;
-}
 
-async function uploadPendingImages(){
-  if(!pendingFiles.length) return;
+  const r=
+    await fetch(
+      '/api/upload-image',
+      {
 
-  const originalItems=allPreviewItems();
-  const uploadedMap=new Map();
-  let uploadedCount=0;
-  const total=pendingFiles.length;
+        method:'POST',
 
-  for(let i=0;i<pendingFiles.length;i++){
-    $('uploadStatus').textContent=`جاري رفع الصورة ${i+1} من ${total}...`;
-    const file=pendingFiles[i];
-    const url=await uploadOne(file);
-    uploadedMap.set(file,url);
-    uploadedCount++;
+        headers:{
+          'x-admin-key':key()
+        },
+
+        body:form
+
+      }
+    );
+
+
+  const text=
+    await r.text();
+
+
+  if(!r.ok){
+
+    throw new Error(
+      text||
+      ('HTTP '+r.status)
+    );
+
   }
 
-  const finalItems=originalItems.map(item=>{
-    if(item.type==='url') return item.value;
-    return uploadedMap.get(item.value);
-  }).filter(Boolean);
 
-  galleryUrls=finalItems;
-  pendingFiles=[];
-  $('uploadStatus').textContent=`✅ تم رفع ${uploadedCount} صورة بنجاح`;
-  renderGalleryPreview();
-}
+  let data;
 
-async function loadProducts(){
-  $('adminKey').value=localStorage.getItem('storeri7a_admin_key')||'';
 
   try{
-    const r=await fetch('/api/products?ts='+Date.now(),{cache:'no-store'});
-    if(!r.ok) throw new Error('HTTP '+r.status);
 
-    products=await r.json();
-    renderProducts();
+    data=
+      JSON.parse(text);
+
   }catch(e){
-    $('productList').textContent='تعذر تحميل المنتجات: '+e.message;
+
+    throw new Error(
+      'رد رفع الصورة غير صالح'
+    );
+
   }
+
+
+  if(!data.url){
+
+    throw new Error(
+      'لم يتم إرجاع رابط الصورة'
+    );
+
+  }
+
+
+  return data.url;
+
 }
 
-function renderProducts(){
-  if(!products.length){
-    $('productList').innerHTML='<p>لا توجد منتجات بعد.</p>';
+
+async function uploadPendingImages(){
+
+  const total=
+    galleryItems
+    .filter(
+      x=>x.type==='file'
+    )
+    .length;
+
+
+  if(!total){
     return;
   }
 
-  $('productList').innerHTML=products.map(p=>{
-    const imgs=parseImages(p.images);
-    const count=imgs.length||(p.image?1:0);
 
-    const sale=(p.sale_price!=null&&Number(p.sale_price)<Number(p.price))
-      ? `<span class="sale"> → ${p.sale_price} DH (-${p.discount||Math.round((1-p.sale_price/p.price)*100)}%)</span>`
-      : '';
+  let uploaded=0;
 
-    return `<div class="item">
-      <div>
-        <b>${esc(p.name)}</b>
-        <div class="meta">${esc(p.category)} — ${p.price} DH ${sale}</div>
-        <div class="meta">${p.brand?'الماركة: '+esc(p.brand)+' — ':''}${p.size?'الحجم: '+esc(p.size):''}</div>
-        <div class="meta">📷 ${count} صورة</div>
-      </div>
 
-      <div class="actions">
-        <button class="secondary" onclick="editProduct(${Number(p.id)})">تعديل</button>
-        <button class="danger" onclick="deleteProduct(${Number(p.id)})">حذف</button>
-      </div>
-    </div>`;
-  }).join('');
-}
+  for(
+    let i=0;
+    i<galleryItems.length;
+    i++
+  ){
 
-function editProduct(id){
-  const p=products.find(x=>Number(x.id)===Number(id));
-  if(!p)return;
+    const item=
+      galleryItems[i];
 
-  editingId=id;
-  $('formTitle').textContent='تعديل المنتج';
-  $('saveBtn').textContent='حفظ التعديل';
-  $('cancelBtn').style.display='inline-block';
 
-  $('productName').value=p.name||'';
-  $('productCategory').value=p.category==='تجميل'?'مواد التجميل':(p.category||'عطور نسائية');
-  $('productBrand').value=p.brand||'';
-  $('productSize').value=p.size||'';
-  $('productDescription').value=p.description||'';
-  $('productPrice').value=p.price??'';
-  $('productSalePrice').value=p.sale_price??'';
-  $('productDiscount').value=p.discount??'';
+    if(
+      item.type!=='file'
+    ){
 
-  setProductType(p.sale_price!=null&&Number(p.sale_price)<Number(p.price));
+      continue;
 
-  galleryUrls=parseImages(p.images);
-  if(!galleryUrls.length&&p.image) galleryUrls=[p.image];
-
-  pendingFiles=[];
-  mainImageIndex=0;
-
-  if(p.image){
-    const idx=galleryUrls.indexOf(p.image);
-    if(idx>=0) mainImageIndex=idx;
-  }
-
-  renderGalleryPreview();
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function resetForm(){
-  editingId=null;
-
-  $('formTitle').textContent='إضافة منتج';
-  $('saveBtn').textContent='إضافة المنتج';
-  $('cancelBtn').style.display='none';
-
-  ['productName','productBrand','productSize','productDescription','productPrice','productSalePrice','productDiscount'].forEach(id=>$(id).value='');
-
-  $('productCategory').value='عطور نسائية';
-  galleryUrls=[];
-  pendingFiles=[];
-  mainImageIndex=0;
-  renderGalleryPreview();
-  setProductType(false);
-}
-
-async function saveProduct(){
-  try{
-    await uploadPendingImages();
-
-    if(mainImageIndex>0 && galleryUrls[mainImageIndex]){
-      const chosen=galleryUrls[mainImageIndex];
-      galleryUrls.splice(mainImageIndex,1);
-      galleryUrls.unshift(chosen);
-      mainImageIndex=0;
     }
 
-    const payload={
-      name:$('productName').value.trim(),
-      category:$('productCategory').value,
-      brand:$('productBrand').value.trim(),
-      size:$('productSize').value.trim(),
-      description:$('productDescription').value.trim(),
-      price:Number($('productPrice').value),
-      sale_price:saleMode&&$('productSalePrice').value!==''?Number($('productSalePrice').value):null,
-      discount:saleMode&&$('productDiscount').value!==''?Number($('productDiscount').value):0,
-      image:galleryUrls[0]||'',
-      images:galleryUrls,
-      active:1
+
+    uploaded++;
+
+
+    $('uploadStatus')
+      .textContent=
+      `جاري رفع الصورة ${uploaded} من ${total}...`;
+
+
+    const url=
+      await uploadOne(
+        item.value
+      );
+
+
+    if(item.preview){
+
+      try{
+
+        URL.revokeObjectURL(
+          item.preview
+        );
+
+      }catch(e){}
+
+    }
+
+
+    galleryItems[i]={
+
+      type:'url',
+
+      value:url,
+
+      preview:null
+
     };
 
-    if(!payload.name||!payload.category||!Number.isFinite(payload.price)||payload.price<0){
-      show('❌ أدخل الاسم والقسم والسعر','err');
-      return;
-    }
 
-    if(payload.sale_price!==null&&(payload.sale_price<0||payload.sale_price>=payload.price)){
-      show('❌ سعر التخفيض يجب أن يكون أقل من السعر العادي','err');
-      return;
-    }
+    renderGalleryPreview();
 
-    const r=await fetch(editingId?'/api/products/'+editingId:'/api/products',{
-      method:editingId?'PUT':'POST',
-      headers:{
-        'content-type':'application/json',
-        'x-admin-key':key()
-      },
-      body:JSON.stringify(payload)
-    });
-
-    const text=await r.text();
-    if(!r.ok) throw new Error(text||('HTTP '+r.status));
-
-    show(editingId?'✅ تم حفظ التعديلات بنجاح':'✅ تمت إضافة المنتج بنجاح','ok');
-    resetForm();
-    await loadProducts();
-
-  }catch(e){
-    show('❌ '+e.message,'err');
   }
+
+
+  $('uploadStatus')
+    .textContent=
+      `✅ تم رفع ${total} صورة بنجاح`;
+
 }
 
-async function deleteProduct(id){
-  if(!confirm('هل تريد حذف هذا المنتج؟')) return;
+
+/* =====================================================
+   PRODUCTS API
+===================================================== */
+
+async function loadProducts(){
+
+  $('adminKey').value=
+    localStorage.getItem(
+      'storeri7a_admin_key'
+    )||'';
+
+
+  $('productList')
+    .textContent=
+    'جاري تحميل المنتجات...';
+
 
   try{
-    const r=await fetch('/api/products/'+id,{
-      method:'DELETE',
-      headers:{'x-admin-key':key()}
-    });
 
-    const text=await r.text();
-    if(!r.ok) throw new Error(text||('HTTP '+r.status));
+    const r=
+      await fetch(
+        '/api/products?ts='+
+        Date.now(),
+        {
+          cache:'no-store',
+          headers:{
+            accept:'application/json'
+          }
+        }
+      );
 
-    show('✅ تم حذف المنتج','ok');
-    await loadProducts();
+
+    if(!r.ok){
+
+      throw new Error(
+        'HTTP '+r.status
+      );
+
+    }
+
+
+    const raw=
+      await r.json();
+
+
+    products=
+      Array.isArray(raw)
+
+      ?raw
+
+      :(
+        Array.isArray(raw.results)
+        ?raw.results
+        :[]
+      );
+
+
+    renderProducts();
+
+
   }catch(e){
-    show('❌ '+e.message,'err');
+
+    $('productList')
+      .textContent=
+      'تعذر تحميل المنتجات: '+
+      e.message;
+
   }
+
 }
 
+
+/* =====================================================
+   PRODUCT LIST
+===================================================== */
+
+function isSaleProduct(p){
+
+  return (
+
+    p.sale_price!==null
+
+    &&
+
+    p.sale_price!==undefined
+
+    &&
+
+    p.sale_price!==''
+
+    &&
+
+    Number(p.sale_price)<
+    Number(p.price)
+
+  );
+
+}
+
+
+function getProductMainImage(p){
+
+  const imgs=
+    parseImages(
+      p.images
+    );
+
+
+  return (
+    p.image
+    ||
+    imgs[0]
+    ||
+    ''
+  );
+
+}
+
+
+function renderProducts(){
+
+  const search=
+    String(
+      $('productSearch')?.value||''
+    )
+    .trim()
+    .toLowerCase();
+
+
+  const filter=
+    $('productFilter')?.value
+    ||'all';
+
+
+  let list=
+    products.filter(
+      p=>{
+
+        if(search){
+
+          const text=
+            [
+              p.name,
+              p.category,
+              p.brand,
+              p.size
+            ]
+            .join(' ')
+            .toLowerCase();
+
+
+          if(
+            !text.includes(search)
+          ){
+
+            return false;
+
+          }
+
+        }
+
+
+        const cat=
+          normalizeCategory(
+            p.category
+          );
+
+
+        if(
+          filter==='women'
+          &&
+          cat!=='عطور نسائية'
+        ){
+
+          return false;
+
+        }
+
+
+        if(
+          filter==='men'
+          &&
+          cat!=='عطور رجالية'
+        ){
+
+          return false;
+
+        }
+
+
+        if(
+          filter==='beauty'
+          &&
+          cat!=='مواد التجميل'
+        ){
+
+          return false;
+
+        }
+
+
+        if(
+          filter==='sale'
+          &&
+          !isSaleProduct(p)
+        ){
+
+          return false;
+
+        }
+
+
+        return true;
+
+      }
+    );
+
+
+  $('productCount')
+    .textContent=
+    `عدد المنتجات: ${list.length}`;
+
+
+  if(!list.length){
+
+    $('productList')
+      .innerHTML=
+      '<div class="empty">لا توجد منتجات مطابقة.</div>';
+
+    return;
+
+  }
+
+
+  $('productList')
+    .innerHTML=
+    list.map(
+      p=>{
+
+        const imgs=
+          parseImages(
+            p.images
+          );
+
+
+        const count=
+          imgs.length
+          ||
+          (
+            p.image
+            ?1
+            :0
+          );
+
+
+        const main=
+          getProductMainImage(p);
+
+
+        const hasSale=
+          isSaleProduct(p);
+
+
+        let sale='';
+
+
+        if(hasSale){
+
+          const discount=
+            Number(p.discount)>0
+
+            ?Math.round(
+              Number(p.discount)
+            )
+
+            :(
+              Number(p.price)>0
+
+              ?Math.round(
+                (
+                  1-
+                  Number(p.sale_price)/
+                  Number(p.price)
+                )*100
+              )
+
+              :0
+            );
+
+
+          sale=`
+
+          <span class="sale">
+
+            ${p.sale_price} DH
+
+            ${
+              discount
+              ?`(-${discount}%)`
+              :''
+            }
+
+          </span>
+
+          `;
+
+        }
+
+
+        const imageHtml=
+          main
+
+          ?`
+          <img
+            class="itemImage"
+            src="${attr(main)}"
+            alt=""
+            loading="lazy"
+          >
+          `
+
+          :`
+          <div class="itemPlaceholder">
+            ✨
+          </div>
+          `;
+
+
+        return `
+
+        <div class="item">
+
+
+          ${imageHtml}
+
+
+          <div>
+
+            <b>
+              ${esc(p.name)}
+            </b>
+
+
+            <div class="meta">
+
+              ${esc(
+                normalizeCategory(
+                  p.category
+                )
+              )}
+
+              —
+
+              ${
+                hasSale
+
+                ?`
+                  <span class="normalPrice">
+                    ${p.price} DH
+                  </span>
+
+                  →
+
+                  ${sale}
+                `
+
+                :`
+                  <span class="normalPrice">
+                    ${p.price} DH
+                  </span>
+                `
+              }
+
+            </div>
+
+
+            <div class="meta">
+
+              ${
+                p.brand
+
+                ?'الماركة: '+
+                esc(p.brand)
+
+                :''
+              }
+
+
+              ${
+                p.brand&&p.size
+                ?' — '
+                :''
+              }
+
+
+              ${
+                p.size
+
+                ?'الحجم: '+
+                esc(p.size)
+
+                :''
+              }
+
+            </div>
+
+
+            <div class="meta">
+
+              📷 ${count} صورة
+
+            </div>
+
+          </div>
+
+
+          <div class="actions">
+
+
+            <button
+              class="secondary"
+              onclick="editProduct(${Number(p.id)})"
+            >
+              تعديل
+            </button>
+
+
+            <button
+              class="danger"
+              onclick="deleteProduct(${Number(p.id)})"
+            >
+              حذف
+            </button>
+
+
+          </div>
+
+        </div>
+
+        `;
+
+      }
+    )
+    .join('');
+
+}
+
+
+/* =====================================================
+   EDIT PRODUCT
+===================================================== */
+
+function editProduct(id){
+
+  const p=
+    products.find(
+      x=>
+        Number(x.id)===
+        Number(id)
+    );
+
+
+  if(!p){
+    return;
+  }
+
+
+  clearMessage();
+
+
+  editingId=
+    Number(id);
+
+
+  $('formTitle')
+    .textContent=
+    'تعديل المنتج';
+
+
+  $('saveBtn')
+    .textContent=
+    'حفظ التعديل';
+
+
+  $('cancelBtn')
+    .style
+    .display=
+    'inline-block';
+
+
+  $('productName').value=
+    p.name||'';
+
+
+  $('productCategory').value=
+    normalizeCategory(
+      p.category
+    )||'عطور نسائية';
+
+
+  $('productBrand').value=
+    p.brand||'';
+
+
+  $('productSize').value=
+    p.size||'';
+
+
+  $('productDescription').value=
+    p.description||'';
+
+
+  $('productPrice').value=
+    p.price??'';
+
+
+  $('productSalePrice').value=
+    p.sale_price??'';
+
+
+  $('productDiscount').value=
+    p.discount??'';
+
+
+  setProductType(
+    isSaleProduct(p)
+  );
+
+
+  const urls=
+    parseImages(
+      p.images
+    );
+
+
+  if(
+    p.image
+    &&
+    !urls.includes(p.image)
+  ){
+
+    urls.unshift(
+      p.image
+    );
+
+  }
+
+
+  galleryItems=
+    urls.map(
+      url=>({
+
+        type:'url',
+
+        value:url,
+
+        preview:null
+
+      })
+    );
+
+
+  mainImageIndex=0;
+
+
+  if(p.image){
+
+    const index=
+      galleryItems.findIndex(
+        item=>
+          item.value===p.image
+      );
+
+
+    if(index>=0){
+
+      mainImageIndex=index;
+
+    }
+
+  }
+
+
+  renderGalleryPreview();
+
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+
+}
+
+
+/* =====================================================
+   RESET FORM
+===================================================== */
+
+function clearObjectUrls(){
+
+  galleryItems
+    .forEach(
+      item=>{
+
+        if(
+          item.type==='file'
+          &&
+          item.preview
+        ){
+
+          try{
+
+            URL.revokeObjectURL(
+              item.preview
+            );
+
+          }catch(e){}
+
+        }
+
+      }
+    );
+
+}
+
+
+function resetForm(){
+
+  clearObjectUrls();
+
+
+  editingId=null;
+
+  saleMode=false;
+
+
+  $('formTitle')
+    .textContent=
+    'إضافة منتج';
+
+
+  $('saveBtn')
+    .textContent=
+    'إضافة المنتج';
+
+
+  $('cancelBtn')
+    .style
+    .display=
+    'none';
+
+
+  [
+
+    'productName',
+
+    'productBrand',
+
+    'productSize',
+
+    'productDescription',
+
+    'productPrice',
+
+    'productSalePrice',
+
+    'productDiscount'
+
+  ]
+  .forEach(
+    id=>
+      $(id).value=''
+  );
+
+
+  $('productCategory').value=
+    'عطور نسائية';
+
+
+  $('productImageFiles').value='';
+
+
+  galleryItems=[];
+
+  mainImageIndex=0;
+
+
+  renderGalleryPreview();
+
+  setProductType(false);
+
+}
+
+
+/* =====================================================
+   SAVE PRODUCT
+===================================================== */
+
+async function saveProduct(){
+
+  if(savingProduct){
+    return;
+  }
+
+
+  clearMessage();
+
+
+  const name=
+    $('productName')
+    .value
+    .trim();
+
+
+  const category=
+    $('productCategory')
+    .value;
+
+
+  const price=
+    Number(
+      $('productPrice').value
+    );
+
+
+  let salePrice=null;
+
+  let discount=0;
+
+
+  if(saleMode){
+
+    if(
+      $('productSalePrice').value!==''
+    ){
+
+      salePrice=
+        Number(
+          $('productSalePrice')
+          .value
+        );
+
+    }
+
+
+    if(
+      $('productDiscount').value!==''
+    ){
+
+      discount=
+        Number(
+          $('productDiscount')
+          .value
+        );
+
+    }
+
+  }
+
+
+  if(
+    !name
+    ||
+    !category
+    ||
+    !Number.isFinite(price)
+    ||
+    price<0
+  ){
+
+    show(
+      '❌ أدخل اسم المنتج والقسم والسعر بشكل صحيح',
+      'err'
+    );
+
+    return;
+
+  }
+
+
+  if(saleMode){
+
+    if(
+      salePrice===null
+      ||
+      !Number.isFinite(salePrice)
+      ||
+      salePrice<0
+      ||
+      salePrice>=price
+    ){
+
+      show(
+        '❌ سعر التخفيض يجب أن يكون أقل من السعر العادي',
+        'err'
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  if(
+    galleryItems.length>
+    MAX_IMAGES
+  ){
+
+    show(
+      '❌ الحد الأقصى هو 12 صورة',
+      'err'
+    );
+
+    return;
+
+  }
+
+
+  if(!key()){
+
+    show(
+      '❌ أدخل ADMIN_KEY واحفظه أولاً',
+      'err'
+    );
+
+    return;
+
+  }
+
+
+  savingProduct=true;
+
+
+  const saveBtn=
+    $('saveBtn');
+
+
+  const oldButtonText=
+    saveBtn.textContent;
+
+
+  saveBtn.disabled=true;
+
+  saveBtn.textContent=
+    'جاري الحفظ...';
+
+
+  try{
+
+
+    /*
+      أولاً نرفع الصور الجديدة
+    */
+
+    await uploadPendingImages();
+
+
+    /*
+      الصورة الرئيسية تنتقل للمركز الأول
+    */
+
+    if(
+      galleryItems.length
+      &&
+      mainImageIndex>0
+      &&
+      galleryItems[mainImageIndex]
+    ){
+
+      const main=
+        galleryItems.splice(
+          mainImageIndex,
+          1
+        )[0];
+
+
+      galleryItems.unshift(
+        main
+      );
+
+
+      mainImageIndex=0;
+
+    }
+
+
+    const urls=
+      galleryItems
+      .filter(
+        item=>
+          item.type==='url'
+      )
+      .map(
+        item=>
+          item.value
+      )
+      .filter(Boolean);
+
+
+    const payload={
+
+      name,
+
+      category,
+
+      brand:
+        $('productBrand')
+        .value
+        .trim(),
+
+      size:
+        $('productSize')
+        .value
+        .trim(),
+
+      description:
+        $('productDescription')
+        .value
+        .trim(),
+
+      price,
+
+      sale_price:
+        saleMode
+        ?salePrice
+        :null,
+
+      discount:
+        saleMode
+        ?discount
+        :0,
+
+      image:
+        urls[0]||'',
+
+      images:
+        urls,
+
+      active:1
+
+    };
+
+
+    const endpoint=
+      editingId
+
+      ?'/api/products/'+
+        editingId
+
+      :'/api/products';
+
+
+    const method=
+      editingId
+
+      ?'PUT'
+
+      :'POST';
+
+
+    const r=
+      await fetch(
+        endpoint,
+        {
+
+          method,
+
+          headers:{
+
+            'content-type':
+              'application/json',
+
+            'x-admin-key':
+              key()
+
+          },
+
+          body:
+            JSON.stringify(
+              payload
+            )
+
+        }
+      );
+
+
+    const text=
+      await r.text();
+
+
+    if(!r.ok){
+
+      throw new Error(
+        text||
+        ('HTTP '+r.status)
+      );
+
+    }
+
+
+    const wasEditing=
+      !!editingId;
+
+
+    resetForm();
+
+
+    show(
+
+      wasEditing
+
+      ?'✅ تم حفظ تعديلات المنتج بنجاح'
+
+      :'✅ تمت إضافة المنتج بنجاح',
+
+      'ok'
+
+    );
+
+
+    try{
+
+      sessionStorage.removeItem(
+        'storeri7a_products'
+      );
+
+    }catch(e){}
+
+
+    await loadProducts();
+
+
+  }catch(e){
+
+
+    show(
+      '❌ '+e.message,
+      'err'
+    );
+
+
+  }finally{
+
+
+    savingProduct=false;
+
+
+    saveBtn.disabled=false;
+
+
+    saveBtn.textContent=
+      editingId
+
+      ?'حفظ التعديل'
+
+      :'إضافة المنتج';
+
+
+    if(
+      !editingId
+      &&
+      oldButtonText===
+      'إضافة المنتج'
+    ){
+
+      saveBtn.textContent=
+        'إضافة المنتج';
+
+    }
+
+  }
+
+}
+
+
+/* =====================================================
+   DELETE PRODUCT
+===================================================== */
+
+async function deleteProduct(id){
+
+  if(
+    !confirm(
+      'هل تريد حذف هذا المنتج؟'
+    )
+  ){
+
+    return;
+
+  }
+
+
+  if(!key()){
+
+    show(
+      '❌ أدخل ADMIN_KEY أولاً',
+      'err'
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+
+    const r=
+      await fetch(
+        '/api/products/'+id,
+        {
+
+          method:'DELETE',
+
+          headers:{
+
+            'x-admin-key':
+              key()
+
+          }
+
+        }
+      );
+
+
+    const text=
+      await r.text();
+
+
+    if(!r.ok){
+
+      throw new Error(
+        text||
+        ('HTTP '+r.status)
+      );
+
+    }
+
+
+    if(
+      Number(editingId)===
+      Number(id)
+    ){
+
+      resetForm();
+
+    }
+
+
+    show(
+      '✅ تم حذف المنتج',
+      'ok'
+    );
+
+
+    try{
+
+      sessionStorage.removeItem(
+        'storeri7a_products'
+      );
+
+    }catch(e){}
+
+
+    await loadProducts();
+
+
+  }catch(e){
+
+
+    show(
+      '❌ '+e.message,
+      'err'
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+$('adminKey').value=
+  localStorage.getItem(
+    'storeri7a_admin_key'
+  )||'';
+
+
 setProductType(false);
+
+renderGalleryPreview();
+
 loadProducts();
+
 </script>
+
 </body>
 </html>

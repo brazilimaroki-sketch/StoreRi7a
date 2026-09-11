@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b3ea8">
+<title>تواصل معنا - StoreRi7a</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.legalPage{max-width:900px;margin:0 auto;padding:28px 16px 48px}
+.legalCard{background:#fff;border-radius:24px;padding:24px 20px;box-shadow:0 12px 35px rgba(0,0,0,.07);line-height:1.9}
+.legalCard h1{margin:0 0 8px;color:#0b3ea8;font-size:30px}
+.legalCard h2{margin:28px 0 8px;font-size:20px;color:#222}
+.legalCard p{color:#444}
+.legalBack{display:inline-flex;margin-bottom:16px;text-decoration:none;font-weight:700;color:#0b3ea8}
+.contactGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:22px}
+.contactCard{border:1px solid #e7eaf2;border-radius:18px;padding:18px;text-align:center}
+.contactCard .icon{font-size:30px;display:block;margin-bottom:8px}
+.contactCard h3{margin:4px 0}.contactCard p{margin:5px 0;font-size:14px}
+.contactBtn{display:inline-flex;justify-content:center;align-items:center;margin-top:10px;padding:10px 16px;border-radius:12px;background:#0b3ea8;color:#fff;text-decoration:none;font-weight:700}
+.legalFooterLinks{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 16px;margin-top:14px}
+.legalFooterLinks a{color:inherit;text-decoration:none}
+@media(max-width:600px){.contactGrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="siteHeader">
+<div class="topBar">
+<a class="brandLogo" href="/" aria-label="StoreRi7a"><img src="ri7a-logo.png" alt="RI7A"></a>
+<div class="searchBox"><span>⌕</span><input id="searchTop" type="search" placeholder="ابحث عن منتج..." oninput="searchAll(this.value)"></div>
+<button class="cartTop" type="button" onclick="openCart()" aria-label="السلة">🛒 <b id="cartCount">0</b></button>
+</div>
+</header>
+
+<main class="legalPage">
+<a class="legalBack" href="/">← العودة للرئيسية</a>
+
+<section class="legalCard">
+<h1>تواصل معنا</h1>
+<p>يسعدنا في StoreRi7a مساعدتك بخصوص المنتجات، الطلبات، التوصيل أو أي استفسار متعلق بالمتجر.</p>
+
+<div class="contactGrid">
+  <article class="contactCard">
+    <span class="icon">💬</span>
+    <h3>WhatsApp</h3>
+    <p>للطلبات والاستفسارات وخدمة الزبناء.</p>
+    <a id="contactWhatsapp" class="contactBtn" href="#" onclick="return openContactWhatsApp()">تواصل عبر WhatsApp</a>
+  </article>
+
+  <article class="contactCard">
+    <span class="icon">🛍️</span>
+    <h3>التسوق</h3>
+    <p>اكتشف العطور ومنتجات التجميل المتوفرة في المتجر.</p>
+    <a class="contactBtn" href="/">العودة للمتجر</a>
+  </article>
+</div>
+
+<h2>بخصوص الطلبات</h2>
+<p>عند التواصل معنا بخصوص طلب سابق، يرجى تزويدنا باسم صاحب الطلب ورقم الهاتف والمنتج المعني حتى نتمكن من مساعدتك بشكل أسرع.</p>
+
+<h2>أوقات الرد</h2>
+<p>نحاول الرد على الرسائل في أقرب وقت ممكن. وقد يختلف وقت الرد حسب ضغط الطلبات والاستفسارات.</p>
+</section>
+</main>
+
+<footer>
+<a href="/" aria-label="العودة للرئيسية"><img src="ri7a-logo.png" alt="RI7A"></a>
+<h3>StoreRi7a</h3>
+<p>عطور للرجال والنساء • جمال • أناقة</p>
+<div class="legalFooterLinks">
+<a href="about.html">من نحن</a>
+<a href="privacy.html">سياسة الخصوصية</a>
+<a href="terms.html">شروط الاستخدام</a>
+<a href="returns.html">الإرجاع والاستبدال</a>
+<a href="shipping.html">الشحن والتوصيل</a>
+<a href="contact.html">تواصل معنا</a>
+</div>
+<small>© 2026 StoreRi7a</small>
+</footer>
+
+<div id="cartShade" class="cartShade" onclick="closeCart()"></div>
+<aside id="cart" class="cartDrawer">
+<div class="cartHead"><h2>سلة المشتريات</h2><button type="button" onclick="closeCart()">✕</button></div>
+<div id="cartItems"></div>
+<div class="cartTotal"><span>المجموع</span><b id="total">0 DH</b></div>
+<button class="waBtn" type="button" onclick="checkout()">إرسال الطلب عبر WhatsApp</button>
+</aside>
+
+<script src="config.js"></script>
+<script src="app.js?v=20260911-speed1"></script>
+<script>
+function openContactWhatsApp(){
+  var number = (window.STORE_CONFIG && STORE_CONFIG.whatsapp) ? String(STORE_CONFIG.whatsapp) : '';
+  number = number.replace(/[^0-9]/g,'');
+  if(!number){
+    alert('رقم WhatsApp غير متوفر حالياً.');
+    return false;
+  }
+  var text = encodeURIComponent('السلام عليكم، أريد الاستفسار من StoreRi7a.');
+  window.open('https://wa.me/' + number + '?text=' + text, '_blank');
+  return false;
+}
+</script>
+</body>
+</html>

@@ -76,3 +76,13 @@ footer img{width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px 
   .services{gap:5px}.services article{padding:11px 4px}.services b{font-size:9px}.services small{font-size:8px}
 }
 @media(min-width:850px){.photo{height:245px}.info{padding:13px}.category{font-size:12px}.info h3{font-size:18px}.price{font-size:20px}.oldPrice{font-size:12px}.add{font-size:14px;padding:12px}.productGrid{gap:15px}}
+/* القائمة الرئيسية تبقى ظاهرة أثناء النزول */
+.homeNav{
+  position:sticky !important;
+  top:0 !important;
+  z-index:9999 !important;
+  background:#fff !important;
+  padding-top:8px !important;
+  padding-bottom:8px !important;
+  box-shadow:0 4px 14px rgba(0,0,0,.10) !important;
+}
